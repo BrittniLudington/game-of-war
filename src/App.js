@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import filebar from './components/filebar';
+import {Switch, Route} from 'react-router-dom';
+import instructions from './components/instructions';
+import FileMenu from './components/filemenu';
+import UserMenu from './components/usermenu';
+import GameMenu from './components/gamemenu';
+import LandingPage from './components/landingpage';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/" component={LandingPage}></Route>
+        <Route path='/instructions' component={instructions}></Route>
+        <Route path='/menu' component={FileMenu}></Route>
+        <Route path="/user/:username" component={UserMenu}></Route>
+        <Route path='/gamemenu-temp' component={GameMenu}></Route>
+      </Switch>
+      {filebar()}
     </div>
   );
 }

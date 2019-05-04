@@ -1,0 +1,93 @@
+.center
+{
+    text-align: center;
+}
+
+a
+{
+    text-decoration: none;
+    color:black;
+}
+
+.gray
+{
+    background-color:lightgray;
+}
+.inline
+{
+    display: inline-block;
+    margin:auto;
+}
+.wide-button
+{
+    width:80%;
+    font-size: 20pt;
+}
+.small
+{
+    width:70%;
+    margin:auto;
+}
+.center-margin
+{
+    margin:auto;
+}
+
+/* INDEX */
+#landingPageButtons
+{
+    list-style: none;
+    padding:0;
+}
+
+/* FILE MENU */
+
+
+table, tr, td
+{
+    border: 1px solid black;
+}
+
+td:hover
+{
+    background-color: white;
+    cursor: pointer;
+}
+
+/*USER MENU*/
+
+#statList
+{
+    list-style: none;
+    text-align:left;
+}
+
+/*GAME MENU*/
+
+.player
+{
+    width:100%;
+}
+
+.card
+{
+    width: 30%;
+    height:110px;
+    background-color:white;
+    border: 1px solid black;
+}
+
+.player-deck:hover
+{
+    background-color:lightgray;
+}
+
+#deck
+{
+    position: relative;
+    bottom: 5px;
+    margin:auto;
+    width:50%;
+    background-color:white;
+    border: 1px solid black;
+}

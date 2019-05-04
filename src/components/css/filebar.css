@@ -1,0 +1,10 @@
+.entry
+{
+    display:inline-block;
+    padding: 0 10px;
+}
+
+.entry:hover
+{
+    background-color:lightgray;
+}
