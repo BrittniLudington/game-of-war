@@ -10,6 +10,7 @@ import "./css/filebar.css";
 export default function filebar()
 {
     return(<nav role="menu" className="fileBar">
+        <Link to="/newfile" className="entry"><h3>New File</h3></Link>
     <Link to='/instructions' className="entry"><h3>Instructions</h3></Link>
     <Link to='/menu' className="entry"><h3>Load/Delete</h3></Link>
     <Link to="/" className="entry"><h3>Front Page</h3></Link>
