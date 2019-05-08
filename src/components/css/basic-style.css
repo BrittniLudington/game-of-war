@@ -71,13 +71,22 @@ td:hover
 
 .card
 {
-    width: 30%;
+    width: 20%;
     height:110px;
-    background-color:white;
     border: 1px solid black;
 }
 
+.card-color
+{
+    background-color: white;
+}
+
 .player-deck:hover
+{
+    background-color:lightgray;
+}
+
+.card-color-selected
 {
     background-color:lightgray;
 }
@@ -90,4 +99,9 @@ td:hover
     width:50%;
     background-color:white;
     border: 1px solid black;
+}
+
+.card-table
+{
+    width:60%;
 }

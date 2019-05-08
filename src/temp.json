@@ -3,26 +3,34 @@
         {
             "username": "john",
             "date-made": "01/22/2001",
-            "total-games": "2",
-            "total-wins": "1",
+            "total-games": 2,
+            "total-wins": 1,
             "win-lose": "50%",
             "gameid": null
         },
         {
             "username": "Cho",
             "date-made": "10/22/2010",
-            "total-games": "10",
-            "total-wins": "7",
+            "total-games": 10,
+            "total-wins": 7,
             "win-lose": "70%",
-            "gameid": "3"
+            "gameid": 3
         },
         {
             "username": "Lulu009",
             "date-made": "05/18/2005",
-            "total-games": "20",
-            "total-wins": "0",
+            "total-games": 20,
+            "total-wins": 0,
             "win-lose": "0%",
-            "gameid": "0"
+            "gameid": null
+        }
+    ],
+    "Games":[
+        {
+            "gameid": 0,
+            "player_points": 5,
+            "npc_points": 3,
+            "round": 8
         }
     ]
 }

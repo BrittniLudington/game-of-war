@@ -49,10 +49,10 @@ function createTable(users,rows)
         let singleRow = [];
         for(let j = 0; j < columns; j++)
         {
-            singleRow.push(<td><File username={users[count].username}></File></td>);
+            singleRow.push(<td key={users[count].username}><File username={users[count].username}></File></td>);
             count++;
         }
-        table.push(<tbody><tr>{singleRow}</tr></tbody>);
+        table.push(<tbody key={i}><tr>{singleRow}</tr></tbody>);
     }
     return table;
 }
