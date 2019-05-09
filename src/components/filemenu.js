@@ -14,8 +14,8 @@ export default class FileMenu extends Component
                     {
                         if(value.users != undefined)
                         {
-                            const rows = value.users.length / 3;
-                            console.log(rows);
+                            let rows = value.users.length / 3;
+                            if (rows < 1) rows = 1;
                             const table = createTable(value.users,rows);
                             return (
                                 <section aria-label="filemenu" className="gray">
@@ -43,12 +43,14 @@ function createTable(users,rows)
     const columns = 3;
     let count = 0;
     let table = [];
-    console.log(users);
     for(let i = 0; i < rows; i++)
     {
         let singleRow = [];
         for(let j = 0; j < columns; j++)
         {
+            console.log(users);
+            console.log(count);
+            if(count > users.length-1) break;
             singleRow.push(<td key={users[count].username}><File username={users[count].username}></File></td>);
             count++;
         }

@@ -10,8 +10,18 @@ export default class dataProvider extends React.Component
     {
         super(props);
         this.state={
-            users: undefined
+            users: undefined,
+            deleteUser: null,
+            games: undefined
         }
+        this.deleteUser = this.deleteUser.bind(this);
+    }
+
+    deleteUser(username)
+    {
+        let array = this.state.users.filter(user => user.username != username);
+        console.log(array);
+        this.setState({users:array});
     }
     componentDidMount()
     {
@@ -21,6 +31,7 @@ export default class dataProvider extends React.Component
         */
         const data = require('./temp.json');
         this.setState({users:data.users});
+        this.setState({deleteUser:this.deleteUser});
     }
     render()
     {
