@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './css/basic-style.css';
 import Hand from './gamecomponents/hand.js';
 import createDeck from './gamecomponents/deck.js';
+import DataProvider, {Context} from './gamecomponents/currentGameData';
 export default class GameMenu extends Component
 {
     constructor()
@@ -17,7 +18,6 @@ export default class GameMenu extends Component
             playersReady: 2,
         };
         this.removeCards = this.removeCards.bind(this);
-        this.selectedCard = this.selectedCard.bind(this);
         this.playRound = this.playRound.bind(this);
         this.startRound = this.startRound.bind(this);
     }
@@ -27,25 +27,10 @@ export default class GameMenu extends Component
         this.setState({deck:newDeck});
     }
 
-    selectedCard(card, player)
+    startRound(callback,e)
     {
-        if(player =="player")
-        {
-            this.setState({playerCard:card});
-        }
-        if(player =="npc")
-        {
-            this.setState({npcCard:card});
-        }
-    }
-
-    startRound()
-    {
-        this.setState({playersReady: this.state.playersReady+1}, () =>
-        {
-            if(this.state.playersReady >= 2)
-                this.setState({newRound: false});
-        })
+        e.preventDefault();
+        callback();
     }
     render()
     {
@@ -55,55 +40,90 @@ export default class GameMenu extends Component
         if(n == 0)
             n = "Enemy's card";
         return(
+            <DataProvider>
             <section aria-label="game display">
             <section className="player" aria-label="enemy">
             <p>Enemy's cards. Player will not see which cards they are. This is only for show.</p>
-           <Hand type="npc" card={this.state.npcCard} startRound={this.startRound} playersReady={this.state.playersReady} score={this.state.nScore} removeCards={this.removeCards} selectedCard={this.selectedCard} deck={this.state.deck}></Hand>
+            <Context.Consumer>
+                {
+                    (value) =>
+                    {
+
+                        return(<Hand setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
+                    }
+                }
+            </Context.Consumer>
         </section>
         <section className="gray" aria-label="attack area">
             <p>After choosing a card, player's and enemy's card will display here to compare.</p>
             <div className="center-margin small center">
-                    <button onClick={this.playRound}>Accept</button>
-                    <div className = "card inline">
-                        {n}
-                    </div>
-                    <div className = "card inline">
-                        {p}
-                    </div>     
-                    <div id="deck">
+                    <Context.Consumer>
+                        {
+                            (value) =>
+                            {
+                                if(!value.showWinPopup)
+                                {
+                                    return(<section aria-label="chosen cards"> 
+                                    <button onClick={e => this.playRound(value.findWinner,e)}>Accept</button>
+    
+                                    <div className = "card inline">
+                                    <h4>Enemy</h4>
+                                        {value.npcCard[1]}
+                                    </div>
+                                    <div className = "card inline">
+                                    <h4>Player</h4>
+                                        {value.playerCard[1]}
+                                    </div>
+                                    <div id="deck">
                             {this.state.deck.length}
-                        </div>           
+                        </div>    
+                                </section>);
+                                }
+                                else
+                                {
+                                    return(<section aria-label="round result screen">
+                                   <button onClick={e => this.startRound(value.start,e)}>Continue</button>
+    
+                                    <div className = "card inline">
+                                    <h4>Enemy</h4>
+                                    {value.npcCard[1]}
+                                    </div>
+                                    <div className = "card inline">
+                                    <h4>Player</h4>
+                                    {value.playerCard[1]}
+                                    </div>
+                                    <h2>{value.winMessage}</h2>
+                                    </section>);
+                                }
+                                
+                            }
+                        }
+                    </Context.Consumer>
+                    
+       
                 </div>
 
         </section>
         <section className="player gray" aria-label="user">
             <p>Player's cards. Select a card to use in battle. Each card will hold an image representing that card</p>
-            <Hand type="player" card={this.state.playerCard} startRound={this.startRound} playersReady={this.state.playersReady} score={this.state.pScore} removeCards={this.removeCards} selectedCard={this.selectedCard} deck={this.state.deck}></Hand>
+            <Context.Consumer>
+                {
+                    (value) =>
+                    {
+                        return(<Hand setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
+                        );
+                    }
+                }
+            </Context.Consumer>
         </section>
-
-            </section>
+        </section>
+        </DataProvider>
         )
     }
 
-    playRound()
+    playRound(callback,e)
     {
-        let p = this.state.playerCard;
-        let n = this.state.npcCard;
-        if(p > n)
-        {
-            console.log("Player wins a point!");
-            this.setState({pScore: this.state.pScore+1});
-        }
-        if(n > p)
-        {
-            console.log("Enemy wins a point!");
-            this.setState({nScore: this.state.nScore+1});
-
-        }
-        if(n == p)
-        {
-            console.log("TIE!");
-        }
-        this.setState({ playersReady: 0});
+        e.preventDefault();
+        callback();
     }
 }

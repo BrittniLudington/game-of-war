@@ -8,24 +8,16 @@ export default class Hand extends Component
         super();
         this.state=
         {
-            "score": 0,
             "cards" : [0,0,0,0,0],
-            "selectedHand": -1
         };
 
         this.selectCard = this.selectCard.bind(this);
         this.toggle = this.toggle.bind(this);
-        this.deleteCard = this.deleteCard.bind(this);
+     //   this.deleteCard = this.deleteCard.bind(this);
     }
 
-    toggle(index, callback, type)
-    {
-        this.setState({"selectedHand":index},() =>
-        {
-            callback(this.state.cards[this.state.selectedHand],type);
-        });
-    }
-    deleteCard(toDelete)
+
+    /*deleteCard(toDelete)
     {
         let nCards = this.state.cards;
         //nCards[this.state.selectedHand] = 0;
@@ -34,53 +26,27 @@ export default class Hand extends Component
         nCards[index] = 0;
         this.setState({cards:nCards, selectedHand: -1});
     }
+    */
 
-    componentDidUpdate(prevProps, prevState)
-    {
-        if(prevProps.playersReady < 2)
-        {
-            console.log("playersReady: "+prevProps.playersReady);
-            this.deleteCard(prevProps.card);
-            prevProps.startRound();
-        }
-    }
+
     render()
     {
 
         this.getHand(this.props.deck,this.props.removeCards);
-        if(this.props.type == "player")
-        {
-            return (
-                <section>
-                    <h2>SCORE: {this.props.score}</h2>
-                    <table className="center-margin card-table">
-                    <tbody>
-                            <tr>
-                                {this.renderHand(this.props.selectedCard, this.props.type)}
-                      
-                            </tr>
-                            </tbody>
-                        </table>
-                </section>
-            );
-        }
-        else
-        {
-            return (
-                <section>
-                    <h2>SCORE: {this.props.score}</h2>
-                    <table className="center-margin card-table">
-                    <tbody>
-                            <tr>
-                                {this.renderHand(this.props.selectedCard, this.props.type)}
-                      
-                            </tr>
-                            </tbody>
-                        </table>
-                </section>
-            );
-        }
 
+            return (
+                <section>
+                    <h2>SCORE: {this.props.score}</h2>
+                    <table className="center-margin card-table">
+                    <tbody>
+                            <tr>
+                                {this.renderHand(this.props.setCard, this.props.card)}
+                      
+                            </tr>
+                            </tbody>
+                        </table>
+                </section>
+            );
     }
 
     getHand(deck,callback)
@@ -101,22 +67,27 @@ export default class Hand extends Component
 
     }
 
-    renderHand(callback, type)
+    renderHand(callback, selectedCard)
     {
         let table = [];
         for(let i = 0; i < this.state.cards.length; i++)
         {
-            if(i == this.state.selectedHand)
-                table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback, type)}>{this.state.cards[i]}</td>);
+            if(i == selectedCard[0])
+                table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback)}>{this.state.cards[i]}</td>);
             else
-                table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback, type)}>{this.state.cards[i]}</td>);
+                table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback)}>{this.state.cards[i]}</td>);
         }
         return table;
     }
 
-    selectCard(index,e,callback, type)
+    selectCard(index,e,callback)
     {
         e.preventDefault();
-        this.toggle(index,callback,type);
+        this.toggle(index,callback);
+    }
+
+    toggle(index, callback)
+    {
+            callback(index, this.state.cards[index]);
     }
 }
