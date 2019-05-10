@@ -49,7 +49,7 @@ export default class GameMenu extends Component
                     (value) =>
                     {
 
-                        return(<Hand setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
+                        return(<Hand toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
                     }
                 }
             </Context.Consumer>
@@ -110,7 +110,7 @@ export default class GameMenu extends Component
                 {
                     (value) =>
                     {
-                        return(<Hand setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
+                        return(<Hand toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
                         );
                     }
                 }

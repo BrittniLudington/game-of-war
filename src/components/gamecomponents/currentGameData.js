@@ -22,7 +22,9 @@ export default class dataProvider extends React.Component
            findWinner: undefined,
            showWinPopup: false,
             winMessage: "",
-            start: undefined
+            start: undefined,
+            removePlayerCard: false,
+            removeNpcCard: false
        }
        this.setPlayerCard = this.setPlayerCard.bind(this);
        this.setNpcCard = this.setNpcCard.bind(this);
@@ -49,7 +51,6 @@ export default class dataProvider extends React.Component
 
     findWinner()
     {
-        console.log(this.state.playerCard, this.state.npcCard);    
         if(this.state.playerCard[1] > this.state.npcCard[1])
         {
             this.setState({playerScore: this.state.playerScore+1,showWinPopup:true, winMessage:"Player Wins a Point!"});
@@ -62,18 +63,19 @@ export default class dataProvider extends React.Component
         {
             this.setState({winMessage:"TIE"});
         }
+        this.setState({removePlayerCard:true,removeNpcCard:true});
     }
 
     setPlayerCard(index, card)
     {
         let newCard = [index,card]
-        this.setState({playerCard:newCard});
+        this.setState({playerCard:newCard, removePlayerCard: false});
     }
 
     setNpcCard(index, card)
     {
         let newCard = [index, card]
-        this.setState({npcCard:newCard});
+        this.setState({npcCard:newCard, removeNpcCard: false});
     }
 
     render()

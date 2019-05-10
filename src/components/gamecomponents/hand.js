@@ -9,6 +9,7 @@ export default class Hand extends Component
         this.state=
         {
             "cards" : [0,0,0,0,0],
+            finishedRemoving: true
         };
 
         this.selectCard = this.selectCard.bind(this);
@@ -32,7 +33,7 @@ export default class Hand extends Component
     render()
     {
 
-        this.getHand(this.props.deck,this.props.removeCards);
+        this.getHand(this.props.deck,this.props.removeCards, this.props.toRemove, this.props.card, this.props.setCard);
 
             return (
                 <section>
@@ -49,20 +50,26 @@ export default class Hand extends Component
             );
     }
 
-    getHand(deck,callback)
+    getHand(deck,callback, toRemove, selected, setCard)
     {
         let hand = this.state.cards;
-        if(hand.includes(0))
+        if(toRemove)
+        {
+            hand[selected[0]] = 0;
+            setCard(-1,0);
+        }
+        if(hand.includes(0) && deck.length != 0)
         {
             for(let i = 0; i < hand.length; i++)
             {
                 if(hand[i] == 0 && deck.length != 0)
                 {
-                    console.log(hand[i], deck[deck.length-1]);
                     hand[i] = deck.pop();
                 }
+
             }
             callback(deck);
+            this.setState({cards:hand});
         }
 
     }
