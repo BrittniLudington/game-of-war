@@ -11,8 +11,9 @@ export default function File(props)
             {
                 (value) =>
                 {
+                    
                     return(<div className="file">
-                            <h3><Link to={"/user/"+props.username}>{props.username}</Link></h3>
+                            <h3><Link to={{pathname:"/user/"+props.username, state:{user:props.user}}}>{props.username}</Link></h3>
                             <button onClick={e => (handleDelete(e,props.username, value.deleteUser))}>Delete</button>
                         </div>);
                 }

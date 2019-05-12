@@ -24,13 +24,32 @@ export default class dataProvider extends React.Component
             winMessage: "",
             start: undefined,
             removePlayerCard: false,
-            removeNpcCard: false
+            removeNpcCard: false,
+            gameEnd: undefined,
+            handEmpty:[-1,-1]
        }
        this.setPlayerCard = this.setPlayerCard.bind(this);
        this.setNpcCard = this.setNpcCard.bind(this);
        this.findWinner = this.findWinner.bind(this);
        this.start = this.start.bind(this);
+       this.gameEnd = this.gameEnd.bind(this);
 
+    }
+
+    gameEnd()
+    {
+        if(this.state.playerScore > this.state.npcScore)
+        {
+            this.setState({winMessage:"YOU WIN!"});
+        }
+        if(this.state.playerScore < this.state.npcScore)
+        {
+            this.setState({winMessage:"YOU LOSE!"});
+        }
+        if(this.state.playerScore == this.state.npcScore)
+        {
+            this.setState({winMessage:"IT'S A TIE!"});
+        }
     }
 
     componentDidMount()
@@ -38,7 +57,8 @@ export default class dataProvider extends React.Component
         this.setState({setPlayerCard:this.setPlayerCard,
             setNpcCard:this.setNpcCard,
             findWinner:this.findWinner,
-        start: this.start});
+        start: this.start,
+        gameEnd: this.gameEnd});
     }
 
     start()
@@ -61,8 +81,9 @@ export default class dataProvider extends React.Component
         }
         else
         {
-            this.setState({winMessage:"TIE"});
+            this.setState({showWinPopup:true,winMessage:"TIE"});
         }
+        
         this.setState({removePlayerCard:true,removeNpcCard:true});
     }
 

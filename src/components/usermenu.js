@@ -10,11 +10,12 @@ export default class UserMenu extends Component
     constructor()
     {
         super();
-        let gameid = 0; // temporary
+
     }
-    componentDidMount()
+    componentWillMount()
     {
-        let user = this.props.match.params.username;
+        let {user} = this.props.location.state;
+        console.log(user);
         this.setState(()=>({user}));
     }
     render()
@@ -22,15 +23,14 @@ export default class UserMenu extends Component
         return(
             <section aria-label="user menu">
             <header className="center" aria-label = "title">
-                <h1>{this.state.user}</h1>
+                <h1>{this.state.user.username}</h1>
                 <p>This page will show the player's current stats, and allow them to either continue playing their current battle or start a new one</p>
             </header>
             <section className=" center gray" aria-label="stats">
             <ul id = "statList">
-                <li>Number of games won: </li>
-                <li>Number of games played: </li>
-                <li>Win rate: </li>
-                <li>Average card power: </li>
+                <li>Number of games won: {this.state.user['total-wins']}</li>
+                <li>Number of games played: {this.state.user['total-games']}</li>
+                <li>Win rate: {this.state.user['win-lose']}</li>
             </ul>
         </section>
         <section aria-label="button directory">

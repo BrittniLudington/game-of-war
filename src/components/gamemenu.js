@@ -11,12 +11,8 @@ export default class GameMenu extends Component
         this.state=
         {
             deck : createDeck(),
-            playerCard: 0,
-            npcCard: 0,
-            pScore: 0,
-            nScore: 0,
-            playersReady: 2,
-        };
+
+                };
         this.removeCards = this.removeCards.bind(this);
         this.playRound = this.playRound.bind(this);
         this.startRound = this.startRound.bind(this);
@@ -49,7 +45,7 @@ export default class GameMenu extends Component
                     (value) =>
                     {
 
-                        return(<Hand toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
+                        return(<Hand empty={value.handEmpty[0]} toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
                     }
                 }
             </Context.Consumer>
@@ -110,7 +106,7 @@ export default class GameMenu extends Component
                 {
                     (value) =>
                     {
-                        return(<Hand toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
+                        return(<Hand empty={value.handEmpty[1]} toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
                         );
                     }
                 }

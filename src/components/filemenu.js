@@ -49,7 +49,7 @@ function createTable(users,rows)
         for(let j = 0; j < columns; j++)
         {
             if(count > users.length-1) break;
-            singleRow.push(<td key={users[count].username}><File username={users[count].username}></File></td>);
+            singleRow.push(<td key={users[count].username}><File user={users[count]} username={users[count].username}></File></td>);
             count++;
         }
         table.push(<tbody key={i}><tr>{singleRow}</tr></tbody>);
