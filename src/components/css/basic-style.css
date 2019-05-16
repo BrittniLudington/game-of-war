@@ -33,6 +33,11 @@ a
     margin:auto;
 }
 
+.instructions
+{
+    list-style: none;
+}
+
 /* INDEX */
 #landingPageButtons
 {
@@ -56,7 +61,7 @@ td:hover
 
 /*USER MENU*/
 
-#statList
+.statList
 {
     list-style: none;
     text-align:left;

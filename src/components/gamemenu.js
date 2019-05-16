@@ -10,12 +10,22 @@ export default class GameMenu extends Component
         super();
         this.state=
         {
-            deck : createDeck(),
+            deck : null,
 
                 };
         this.removeCards = this.removeCards.bind(this);
         this.playRound = this.playRound.bind(this);
         this.startRound = this.startRound.bind(this);
+    }
+
+    componentWillMount()
+    {
+        console.log(this.props);
+        if(this.props.location.gameid === null)
+        {
+            this.setState({deck: createDeck()});
+            
+        }
     }
 
     removeCards(newDeck)

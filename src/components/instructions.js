@@ -9,7 +9,7 @@ export default function instructions()
             <p>This is a simplified version of the classic card game WAR</p>
             <h2>To Start</h2>
             <p>Each game will start with a pack of 52 cards</p>
-            <ul>
+            <ul className="instructions">
                 <li>Each card has a number from 1 to 10</li>
                 <li>The deck will be randomized and then cut in half</li>
                 <li>Both players will receive each half of the deck</li>
@@ -17,7 +17,7 @@ export default function instructions()
             </ul>
 
             <h2>Playing</h2>
-            <ul>
+            <ul className="instructions">
                 <li>Players will choose a card out of their hands to use each round</li>
                 <li>The player with the highest card that round receives a point</li>
                 <li>If both cards are the same level, no one receives a point</li>
@@ -27,7 +27,7 @@ export default function instructions()
             </ul>
 
             <h2>To Win</h2>
-            <ul>
+            <ul className="instructions">
                 <li>Players will continue playing rounds until no more cards are available</li>
                 <li>Whoever has the most points officially wins the game</li>
             </ul>
