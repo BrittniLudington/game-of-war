@@ -26,15 +26,22 @@ export default class dataProvider extends React.Component
             removePlayerCard: false,
             removeNpcCard: false,
             gameEnd: undefined,
-            handEmpty:[-1,-1]
+            handEmpty:[-1,-1],
+            round: 1,
+            gameIsOver: false,
+            startGame: undefined
        }
+       // total rounds: 15
        this.setPlayerCard = this.setPlayerCard.bind(this);
        this.setNpcCard = this.setNpcCard.bind(this);
        this.findWinner = this.findWinner.bind(this);
        this.start = this.start.bind(this);
        this.gameEnd = this.gameEnd.bind(this);
+       this.startGame = this.startGame.bind(this);
 
     }
+
+  
 
     gameEnd()
     {
@@ -50,23 +57,44 @@ export default class dataProvider extends React.Component
         {
             this.setState({winMessage:"IT'S A TIE!"});
         }
+        this.setState({gameIsOver:true});
     }
 
-    componentDidMount()
+    componentWillMount()
     {
+        console.log("hi");
         this.setState({setPlayerCard:this.setPlayerCard,
             setNpcCard:this.setNpcCard,
             findWinner:this.findWinner,
         start: this.start,
-        gameEnd: this.gameEnd});
+        gameEnd: this.gameEnd,
+        startGame:this.startGame});
+    }
+
+    startGame()
+    {
+        this.setState({showWinPopup: false,
+        winMessage:"",
+        playerCard:[-1,0],
+        npcCard:[-1,0],
+        playerScore: 0,
+        npcScore: 0,
+        playerReady: false,
+        npcReady: false,
+        removePlayerCard: false,
+        removeNpcCard: false,
+        handEmpty:[-1,-1],
+        round: 1,
+        gameIsOver: false,
+        });
     }
 
     start()
     {
         this.setState({showWinPopup: false,
             winMessage:"",
-        playerCard:[-1,0],
-        npcCard:[-1,0]});
+
+        removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
     }
 
     findWinner()
@@ -84,7 +112,11 @@ export default class dataProvider extends React.Component
             this.setState({showWinPopup:true,winMessage:"TIE"});
         }
         
-        this.setState({removePlayerCard:true,removeNpcCard:true});
+        if(this.state.round == 15)
+        {
+            this.gameEnd();
+        }
+       // this.setState({removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
     }
 
     setPlayerCard(index, card)

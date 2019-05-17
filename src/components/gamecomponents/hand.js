@@ -9,32 +9,31 @@ export default class Hand extends Component
         this.state=
         {
             "cards" : [0,0,0,0,0],
-            finishedRemoving: true
+            finishedRemoving: true,
+            selectedACard : false
         };
 
         this.selectCard = this.selectCard.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.npcSelectCard = this.npcSelectCard.bind(this);
      //   this.deleteCard = this.deleteCard.bind(this);
     }
 
-
-    /*deleteCard(toDelete)
-    {
-        let nCards = this.state.cards;
-        //nCards[this.state.selectedHand] = 0;
-        let index = nCards.findIndex((entry) => {return entry == toDelete;});
-        console.log(toDelete,index,nCards);
-        nCards[index] = 0;
-        this.setState({cards:nCards, selectedHand: -1});
-    }
-    */
 
 
     render()
     {
 
         this.getHand(this.props.deck,this.props.removeCards, this.props.toRemove, this.props.card, this.props.setCard);
-
+            if(this.props.type == "npc")
+            {
+                this.npcSelectCard(this.props.card,this.props.setCard,this.props.round);
+                return (
+                    <section>
+                        <h2>SCORE: {this.props.score}</h2>
+                    </section>
+                )
+            }
             return (
                 <section>
                     <h2>SCORE: {this.props.score}</h2>
@@ -58,7 +57,6 @@ export default class Hand extends Component
             hand[selected[0]] = 0;
             setCard(-1,0);
         }
-        console.log(deck.length);
         if(hand.includes(0) && deck.length != 0)
         {
             for(let i = 0; i < hand.length; i++)
@@ -92,6 +90,18 @@ export default class Hand extends Component
     {
         e.preventDefault();
         this.toggle(index,callback);
+    }
+
+    npcSelectCard(selected,callback, round)
+    {
+        if(selected[0] != -1) // already picked a card
+            return;
+        let num = Math.floor(Math.random() * 5);
+        while(this.state.cards[num] == 0 && round != 15)
+        {
+            num = Math.floor(Math.random() * 5);
+        }
+        callback(num,this.state.cards[num]);
     }
 
     toggle(index, callback)

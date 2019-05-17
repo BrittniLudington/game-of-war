@@ -22,7 +22,7 @@ export default class GameMenu extends Component
     {
         console.log(this.props);
         console.log(this.props.history.location.deck);
-        this.setState({deck: createDeck(this.props.history.location.deck)});
+            this.setState({deck: createDeck(this.props.history.location.deck)});
             
 
     }
@@ -54,7 +54,7 @@ export default class GameMenu extends Component
                     (value) =>
                     {
 
-                        return(<Hand empty={value.handEmpty[0]} toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
+                        return(<Hand round={value.round} type="npc" empty={value.handEmpty[0]} toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
                     }
                 }
             </Context.Consumer>
@@ -69,11 +69,12 @@ export default class GameMenu extends Component
                                 if(!value.showWinPopup)
                                 {
                                     return(<section aria-label="chosen cards"> 
-                                    <button onClick={e => this.playRound(value.findWinner,e)}>Accept</button>
+                                    <h3>Round {value.round}</h3>
+                                    <button disabled={value.playerCard[0]==-1} onClick={e => this.playRound(value.findWinner,e)}>Accept</button>
     
                                     <div className = "card inline">
                                     <h4>Enemy</h4>
-                                        {value.npcCard[1]}
+                                        ???
                                     </div>
                                     <div className = "card inline">
                                     <h4>Player</h4>
@@ -83,6 +84,22 @@ export default class GameMenu extends Component
                             {this.state.deck.length}
                         </div>    
                                 </section>);
+                                }
+                                else if(value.gameIsOver)
+                                {
+                                    return(<section aria-label="round result screen">
+                                    <button onClick={e => this.startRound(value.startGame,e)}>Play Again?</button>
+     
+                                     <div className = "card inline">
+                                     <h4>Enemy</h4>
+                                     {value.npcCard[1]}
+                                     </div>
+                                     <div className = "card inline">
+                                     <h4>Player</h4>
+                                     {value.playerCard[1]}
+                                     </div>
+                                     <h2>{value.winMessage}</h2>
+                                     </section>);
                                 }
                                 else
                                 {
@@ -115,7 +132,7 @@ export default class GameMenu extends Component
                 {
                     (value) =>
                     {
-                        return(<Hand empty={value.handEmpty[1]} toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
+                        return(<Hand round={value.round} type="player" empty={value.handEmpty[1]} toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
                         );
                     }
                 }
