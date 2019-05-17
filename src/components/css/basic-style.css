@@ -67,6 +67,11 @@ td:hover
     text-align:left;
 }
 
+#gameButtons
+{
+    list-style: none;
+}
+
 /*GAME MENU*/
 
 .player

@@ -36,6 +36,14 @@ export default class dataProvider extends React.Component
 
     addUser(name)
     {
+        const alreadyExists = this.state.users.find(function(entry)
+        {
+            return entry.username == name;
+        });
+        if(alreadyExists != undefined)
+        {
+            return;
+        }
         let array = this.state.users;
         let gameArray = this.state.games;
         let gameids = array.map(entry => entry.gameid);

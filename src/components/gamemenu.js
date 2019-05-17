@@ -21,11 +21,10 @@ export default class GameMenu extends Component
     componentWillMount()
     {
         console.log(this.props);
-        if(this.props.location.gameid === null)
-        {
-            this.setState({deck: createDeck()});
+        console.log(this.props.history.location.deck);
+        this.setState({deck: createDeck(this.props.history.location.deck)});
             
-        }
+
     }
 
     removeCards(newDeck)

@@ -58,6 +58,7 @@ export default class Hand extends Component
             hand[selected[0]] = 0;
             setCard(-1,0);
         }
+        console.log(deck.length);
         if(hand.includes(0) && deck.length != 0)
         {
             for(let i = 0; i < hand.length; i++)

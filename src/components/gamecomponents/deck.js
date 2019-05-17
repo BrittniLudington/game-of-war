@@ -1,7 +1,19 @@
 
-export default function createDeck()
+export default function createDeck(deckFile)
 {
-    let fullDeck =
+    let fullDeck = [];
+    for(let i = 0; i < 3; i++)
+    {
+        for(let num = 1; num <= 10; num++)
+        {
+            if(deckFile[i][`${num}`] == 0)
+            {
+                fullDeck.push(num);
+            }
+        }
+    }
+    console.log(fullDeck.length);
+    /*let fullDeck =
     [
         1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10
     ];
@@ -16,5 +28,6 @@ export default function createDeck()
         fullDeck[curr] = fullDeck[randIndex];
         fullDeck[randIndex] = tempValue;
     }
+    */
     return fullDeck;
 }
