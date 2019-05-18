@@ -20,9 +20,9 @@ export default class GameMenu extends Component
 
     componentWillMount()
     {
-        console.log(this.props);
-        console.log(this.props.history.location.deck);
-            this.setState({deck: createDeck(this.props.history.location.deck)});
+      //  console.log(this.props);
+      //  console.log(this.props.history.location.deck);
+      //      this.setState({deck: createDeck(this.props.history.location.deck)});
             
 
     }
@@ -48,13 +48,12 @@ export default class GameMenu extends Component
             <DataProvider>
             <section aria-label="game display">
             <section className="player" aria-label="enemy">
-            <p>Enemy's cards. Player will not see which cards they are. This is only for show.</p>
             <Context.Consumer>
                 {
                     (value) =>
                     {
-
-                        return(<Hand round={value.round} type="npc" empty={value.handEmpty[0]} toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>);
+                        if(value.currentDeck != undefined)
+                            return(<Hand round={value.round} type="npc" empty={value.handEmpty[0]} toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard} score={value.npcScore} removeCards={this.removeCards}  deck={value.currentDeck}></Hand>);
                     }
                 }
             </Context.Consumer>
@@ -66,6 +65,9 @@ export default class GameMenu extends Component
                         {
                             (value) =>
                             {
+                                let length = "loading";
+                                if(value.currentDeck != undefined)
+                                    length = value.currentDeck.length;
                                 if(!value.showWinPopup)
                                 {
                                     return(<section aria-label="chosen cards"> 
@@ -81,7 +83,7 @@ export default class GameMenu extends Component
                                         {value.playerCard[1]}
                                     </div>
                                     <div id="deck">
-                            {this.state.deck.length}
+                                    {length}
                         </div>    
                                 </section>);
                                 }
@@ -132,7 +134,8 @@ export default class GameMenu extends Component
                 {
                     (value) =>
                     {
-                        return(<Hand round={value.round} type="player" empty={value.handEmpty[1]} toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={this.state.deck}></Hand>
+                        if(value.currentDeck != undefined)
+                            return(<Hand round={value.round} type="player" empty={value.handEmpty[1]} toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard} score={value.playerScore} removeCards={this.removeCards}  deck={value.currentDeck}></Hand>
                         );
                     }
                 }

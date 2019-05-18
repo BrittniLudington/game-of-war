@@ -20,7 +20,7 @@ function App() {
         <Route path='/instructions' component={instructions}></Route>
         <Route path='/menu' component={FileMenu}></Route>
         <Route path="/user/:username" component={UserMenu}></Route>
-        <Route path='/gamemenu-temp' component={GameMenu}></Route>
+        <Route path='/gamemenu/:username' component={GameMenu}></Route>
         <Route path='/newfile' component={NewFile}></Route>
       </Switch>
       {filebar()}

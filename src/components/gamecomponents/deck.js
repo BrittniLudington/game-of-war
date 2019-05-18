@@ -2,6 +2,7 @@
 export default function createDeck(deckFile)
 {
     let fullDeck = [];
+    console.log(deckFile);
     for(let i = 0; i < 3; i++)
     {
         for(let num = 1; num <= 10; num++)

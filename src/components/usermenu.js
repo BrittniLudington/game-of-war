@@ -7,7 +7,6 @@ export default class UserMenu extends Component
     state = {
         user: null,
         game: null,
-        deckData: null,
     };
     constructor()
     {
@@ -17,13 +16,7 @@ export default class UserMenu extends Component
     componentWillMount()
     {
         let {user, game} = this.props.location.state;
-        fetch(`http://localhost:5000/deck/${user.username}`,
-        {
-            headers: {'Content-Type':'application/json'}
-        })
-        .then(res => res.json())
-        .then(result => this.setState(() =>({deckData:result})))
-        
+
         this.setState(()=>({user,game}));
     }
     render()
@@ -52,7 +45,7 @@ export default class UserMenu extends Component
         </section>
         <section aria-label="button directory">
             <ul id="gameButtons">
-                <li><Link to={{pathname:'/gamemenu-temp',gameid:this.state.user.gameid, deck:this.state.deckData}}>Continue/Begin Game</Link></li>
+                <li><Link to={{pathname:`/gamemenu/${this.state.user.username}`,gameid:this.state.user.gameid}}>Continue/Begin Game</Link></li>
                 <li><Link to="/">Return to Menu</Link></li>
             </ul>
         </section>

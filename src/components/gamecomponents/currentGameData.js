@@ -1,4 +1,6 @@
 import React from 'react';
+import createDeck from './deck.js';
+
 
 export const Context = React.createContext({
     state : undefined
@@ -29,7 +31,8 @@ export default class dataProvider extends React.Component
             handEmpty:[-1,-1],
             round: 1,
             gameIsOver: false,
-            startGame: undefined
+            startGame: undefined,
+            currentDeck: undefined
        }
        // total rounds: 15
        this.setPlayerCard = this.setPlayerCard.bind(this);
@@ -62,7 +65,28 @@ export default class dataProvider extends React.Component
 
     componentWillMount()
     {
-        console.log("hi");
+        const username = this.props.children._self.props.match.params.username;
+        fetch(`http://localhost:5000/deck/${username}`,
+        {
+            headers: {'Content-Type':'application/json'}
+        })
+        .then(res => res.json())
+        .then(result => {const d = createDeck(result); this.setState(() => ({currentDeck:d}))})
+        fetch(`http://localhost:5000/games/${username}`,
+        {
+            headers: {'Content-Type':'application/json'}
+        })
+        .then(res => res.json())
+        .then(result =>
+            {
+                console.log(result);
+                this.setState({playerScore:result['player-score'],
+                npcScore:result['npc-score'],
+                round:result['round-num']});
+            })
+        
+        //.then(result => this.setState(() =>({currentDeck:result})))
+        
         this.setState({setPlayerCard:this.setPlayerCard,
             setNpcCard:this.setNpcCard,
             findWinner:this.findWinner,
