@@ -8,13 +8,11 @@ import UserMenu from './components/usermenu';
 import GameMenu from './components/gamemenu';
 import LandingPage from './components/landingpage';
 import NewFile from './components/newfile';
-import DataProvider from './data';
 
 
 function App() {
   return (
     <div className="App">
-    <DataProvider>
       <Switch>
         <Route exact path="/" component={LandingPage}></Route>
         <Route path='/instructions' component={instructions}></Route>
@@ -24,7 +22,6 @@ function App() {
         <Route path='/newfile' component={NewFile}></Route>
       </Switch>
       {filebar()}
-      </DataProvider>
     </div>
   );
 }

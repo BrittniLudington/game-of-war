@@ -18,14 +18,6 @@ export default class GameMenu extends Component
         this.startRound = this.startRound.bind(this);
     }
 
-    componentWillMount()
-    {
-      //  console.log(this.props);
-      //  console.log(this.props.history.location.deck);
-      //      this.setState({deck: createDeck(this.props.history.location.deck)});
-            
-
-    }
 
     removeCards(newDeck)
     {

@@ -5,23 +5,37 @@ import {Link} from 'react-router-dom';
 export default class UserMenu extends Component
 {
     state = {
-        user: null,
-        game: null,
+        user: {
+            username: "",
+            'total-wins': "",
+            'total-games': "",
+            'win-lose': ""
+        },
+        game: {
+            'round-num':"",
+            'player-score': "",
+            'npc-score': ""
+        }
     };
     constructor()
     {
         super();
 
     }
-    componentWillMount()
+    componentDidMount()
     {
-        let {user, game} = this.props.location.state;
+        let {user} = this.props.location.state;
+        this.setState(()=>({user}));
 
-        this.setState(()=>({user,game}));
+        fetch(`http://localhost:5000/games/${user.username}`,
+        {
+            headers: {'Content-Type':'application/json'}
+        })
+        .then(res => res.json())
+        .then(result => this.setState({game:result}));
     }
     render()
     {
-        console.log(this.state.deckData);
         return(
             <section aria-label="user menu">
             <header className="center" aria-label = "title">

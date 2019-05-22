@@ -32,7 +32,9 @@ export default class dataProvider extends React.Component
             round: 1,
             gameIsOver: false,
             startGame: undefined,
-            currentDeck: undefined
+            currentDeck: undefined,
+            saveGame: undefined,
+            saveToFile:undefined
        }
        // total rounds: 15
        this.setPlayerCard = this.setPlayerCard.bind(this);
@@ -41,7 +43,8 @@ export default class dataProvider extends React.Component
        this.start = this.start.bind(this);
        this.gameEnd = this.gameEnd.bind(this);
        this.startGame = this.startGame.bind(this);
-
+       this.saveGame = this.saveGame.bind(this);
+       this.saveToFile = this.saveToFile.bind(this);
     }
 
   
@@ -92,7 +95,12 @@ export default class dataProvider extends React.Component
             findWinner:this.findWinner,
         start: this.start,
         gameEnd: this.gameEnd,
-        startGame:this.startGame});
+        startGame:this.startGame,
+        saveGame: this.saveGame,
+        saveToFile:this.saveToFile,
+        winMessage: "",
+        gameIsOver:false,
+        showWinPopup:false});
     }
 
     startGame()
@@ -121,23 +129,67 @@ export default class dataProvider extends React.Component
         removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
     }
 
+    saveToFile()
+    {
+        console.log("SAVELH");
+        const win = this.state.playerScore >= this.state.npcScore;
+        const name = this.props.children._self.props.match.params.username;
+        fetch(`http://localhost:5000/files/${name}`,
+        {
+            crossDomain: true,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: name,
+                didWin: win
+            })
+        })
+    }
+
+    saveGame()
+    {
+        console.log(this.state.currentDeck);
+        const name = this.props.children._self.props.match.params.username;
+        console.log(this.state.playerCard,this.state.npcCard);
+        fetch(`http://localhost:5000/games/${name}`,
+        {
+            crossDomain: true,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: name,
+                pscore: this.state.playerScore,
+                nscore: this.state.npcScore,
+                round: this.state.round,
+                deck: this.state.currentDeck
+            })
+        })
+    }
+
     findWinner()
     {
         if(this.state.playerCard[1] > this.state.npcCard[1])
         {
-            this.setState({playerScore: this.state.playerScore+1,showWinPopup:true, winMessage:"Player Wins a Point!"});
+            this.setState({playerScore: this.state.playerScore+1,showWinPopup:true, winMessage:"Player Wins a Point!"},() => this.saveGame());
         }
         else if(this.state.playerCard[1] < this.state.npcCard[1])
         {
-            this.setState({npcScore: this.state.npcScore+1,showWinPopup:true, winMessage:"Enemy Wins a Point!"});
+            this.setState({npcScore: this.state.npcScore+1,showWinPopup:true, winMessage:"Enemy Wins a Point!"},() => this.saveGame());
         }
         else
         {
-            this.setState({showWinPopup:true,winMessage:"TIE"});
+            this.setState({showWinPopup:true,winMessage:"TIE"},() =>this.saveGame());
         }
         
         if(this.state.round == 15)
         {
+            this.saveToFile();
             this.gameEnd();
         }
        // this.setState({removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});

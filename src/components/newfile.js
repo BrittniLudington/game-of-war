@@ -1,5 +1,4 @@
 import React from 'react';
-import { Context } from '../data';
 import {withRouter} from 'react-router-dom';
 
 export default function NewFile(props)
@@ -10,14 +9,9 @@ export default function NewFile(props)
         callback(document.getElementById('username').value);
         props.history.push('/');
     }
-    return(
-    <Context.Consumer>
-        {
-            (value) =>
-            {
-                return(<section aria-label="make a new file">
+    return(<section aria-label="make a new file">
                         <h1>New Game</h1>
-                        <form id="newFileForm" aria-label="fill out username here" onSubmit={(e) =>handleSubmit(e,value.addUser,props)}>
+                        <form id="newFileForm" aria-label="fill out username here" onSubmit={(e) =>handleSubmit(e,addUser,props)}>
                             <label>
                                 Name:
                                 <input type="text" id="username" name="username"/>
@@ -25,12 +19,45 @@ export default function NewFile(props)
                             <input type="submit" value="submit"/>
                         </form>
                     </section>
-                    )
-            }
-        }
-    </Context.Consumer>
     );
 
-
 }
+
+function addUser(name)
+    {
+        let alreadyExists = false;
+        fetch(`http://localhost:5000/files/${name}`)
+        .then(res => res.json())
+        .then(result =>
+            {
+                if(result.length > 0) alreadyExists = true;
+            })
+       
+        if(alreadyExists)
+        {
+            return;
+        }
+        /*            "username": "john",
+            "date-made": "01/22/2001",
+            "total-games": 2,
+            "total-wins": 1,
+            "win-lose": "50%",
+            "gameid": null */
+
+        fetch('http://localhost:5000/files',//'https://game-of-war-server.herokuapp.com/files',
+        {
+            crossDomain: true,
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: name,
+            })
+        })
+
+
+    }
+
 
