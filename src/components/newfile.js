@@ -32,20 +32,14 @@ function addUser(name)
             {
                 if(result.length > 0) alreadyExists = true;
             })
-       
-        if(alreadyExists)
+        .then(() =>
         {
-            return;
-        }
-        /*            "username": "john",
-            "date-made": "01/22/2001",
-            "total-games": 2,
-            "total-wins": 1,
-            "win-lose": "50%",
-            "gameid": null */
-
-        fetch('http://localhost:5000/files',//'https://game-of-war-server.herokuapp.com/files',
-        {
+            if(alreadyExists)
+            {
+                return;
+            }
+            fetch('http://localhost:5000/files',//'https://game-of-war-server.herokuapp.com/files',
+            {
             crossDomain: true,
             method: 'POST',
             headers: {
@@ -55,7 +49,18 @@ function addUser(name)
             body: JSON.stringify({
                 username: name,
             })
+            })
         })
+       
+
+        /*            "username": "john",
+            "date-made": "01/22/2001",
+            "total-games": 2,
+            "total-wins": 1,
+            "win-lose": "50%",
+            "gameid": null */
+
+        
 
 
     }

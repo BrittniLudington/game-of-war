@@ -151,9 +151,7 @@ export default class dataProvider extends React.Component
 
     saveGame()
     {
-        console.log(this.state.currentDeck);
         const name = this.props.children._self.props.match.params.username;
-        console.log(this.state.playerCard,this.state.npcCard);
         fetch(`http://localhost:5000/games/${name}`,
         {
             crossDomain: true,
@@ -170,10 +168,18 @@ export default class dataProvider extends React.Component
                 deck: this.state.currentDeck
             })
         })
+        .then(() => console.log("DONE"));
     }
 
     findWinner()
     {
+        console.log(this.state.round);
+        if(this.state.round >= 15 && !this.state.gameIsOver)
+        {
+            this.saveToFile();
+            this.gameEnd();
+            return;
+        }
         if(this.state.playerCard[1] > this.state.npcCard[1])
         {
             this.setState({playerScore: this.state.playerScore+1,showWinPopup:true, winMessage:"Player Wins a Point!"},() => this.saveGame());
@@ -187,11 +193,7 @@ export default class dataProvider extends React.Component
             this.setState({showWinPopup:true,winMessage:"TIE"},() =>this.saveGame());
         }
         
-        if(this.state.round == 15)
-        {
-            this.saveToFile();
-            this.gameEnd();
-        }
+
        // this.setState({removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
     }
 
