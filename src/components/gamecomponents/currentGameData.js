@@ -53,17 +53,16 @@ export default class dataProvider extends React.Component
     {
         if(this.state.playerScore > this.state.npcScore)
         {
-            this.setState({winMessage:"YOU WIN!"});
+            this.setState({winMessage:"YOU WIN!",gameisOver:true},() =>  this.saveToFile());
         }
         if(this.state.playerScore < this.state.npcScore)
         {
-            this.setState({winMessage:"YOU LOSE!"});
+            this.setState({winMessage:"YOU LOSE!",gameisOver:true},() =>  this.saveToFile());
         }
         if(this.state.playerScore == this.state.npcScore)
         {
-            this.setState({winMessage:"IT'S A TIE!"});
+            this.setState({winMessage:"IT'S A TIE!",gameIsOver:true},() =>  this.saveToFile());
         }
-        this.setState({gameIsOver:true});
     }
 
     componentWillMount()
@@ -146,7 +145,8 @@ export default class dataProvider extends React.Component
                 username: name,
                 didWin: win
             })
-        })
+        }).then(() => console.log("DONE"));
+
     }
 
     saveGame()
@@ -167,16 +167,14 @@ export default class dataProvider extends React.Component
                 round: this.state.round,
                 deck: this.state.currentDeck
             })
-        })
-        .then(() => console.log("DONE"));
+        }).then(console.log("done"));
     }
 
     findWinner()
     {
         console.log(this.state.round);
-        if(this.state.round >= 15 && !this.state.gameIsOver)
+        if(this.state.round >= 14 && !this.state.gameIsOver)
         {
-            this.saveToFile();
             this.gameEnd();
             return;
         }

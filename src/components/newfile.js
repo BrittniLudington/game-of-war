@@ -25,20 +25,19 @@ export default function NewFile(props)
 
 function addUser(name)
     {
+        console.log("IN USER");
         let alreadyExists = false;
         fetch(`http://localhost:5000/files/${name}`)
         .then(res => res.json())
         .then(result =>
             {
                 if(result.length > 0) alreadyExists = true;
-            })
-        .then(() =>
-        {
+            console.log("inside second then");
             if(alreadyExists)
             {
                 return;
             }
-            fetch('http://localhost:5000/files',//'https://game-of-war-server.herokuapp.com/files',
+            fetch('http://localhost:5000/files',
             {
             crossDomain: true,
             method: 'POST',
