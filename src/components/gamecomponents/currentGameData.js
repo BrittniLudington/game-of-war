@@ -13,6 +13,8 @@ export default class dataProvider extends React.Component
         super(props);
        this.state =
        {
+           playerHand: [],
+           npcHand: [],
            playerScore: 0,
            npcScore: 0,
            playerCard: [-1,0],
@@ -34,7 +36,9 @@ export default class dataProvider extends React.Component
             startGame: undefined,
             currentDeck: undefined,
             saveGame: undefined,
-            saveToFile:undefined
+            saveToFile:undefined,
+            setHand: undefined,
+            removeCard:undefined
        }
        // total rounds: 15
        this.setPlayerCard = this.setPlayerCard.bind(this);
@@ -45,35 +49,44 @@ export default class dataProvider extends React.Component
        this.startGame = this.startGame.bind(this);
        this.saveGame = this.saveGame.bind(this);
        this.saveToFile = this.saveToFile.bind(this);
+       this.setHand = this.setHand.bind(this);
+       this.removeCard = this.removeCard.bind(this);
     }
 
-  
+    removeCard(newDeck)
+    {
+        this.setState({currentDeck:newDeck});
+    }
+
 
     gameEnd()
     {
         if(this.state.playerScore > this.state.npcScore)
         {
-            this.setState({winMessage:"YOU WIN!",gameisOver:true},() =>  this.saveToFile());
+            this.setState({winMessage:"YOU WIN!",gameIsOver:true},() =>  this.saveToFile() );
         }
         if(this.state.playerScore < this.state.npcScore)
         {
-            this.setState({winMessage:"YOU LOSE!",gameisOver:true},() =>  this.saveToFile());
+            this.setState({winMessage:"YOU LOSE!",gameIsOver:true},() =>  this.saveToFile());
         }
         if(this.state.playerScore == this.state.npcScore)
         {
             this.setState({winMessage:"IT'S A TIE!",gameIsOver:true},() =>  this.saveToFile());
         }
+        
+    }
+
+    setHand(type, handToSet)
+    {
+        if(type == "player")
+            this.setState({playerHand:handToSet, removePlayerCard: false});
+        if(type == "npc")
+            this.setState({npcHand:handToSet, removeNpcCard: false});
     }
 
     componentWillMount()
     {
         const username = this.props.children._self.props.match.params.username;
-        fetch(`http://localhost:5000/deck/${username}`,
-        {
-            headers: {'Content-Type':'application/json'}
-        })
-        .then(res => res.json())
-        .then(result => {const d = createDeck(result); this.setState(() => ({currentDeck:d}))})
         fetch(`http://localhost:5000/games/${username}`,
         {
             headers: {'Content-Type':'application/json'}
@@ -81,10 +94,14 @@ export default class dataProvider extends React.Component
         .then(res => res.json())
         .then(result =>
             {
-                console.log(result);
+                const d = createDeck(result.deck);
                 this.setState({playerScore:result['player-score'],
                 npcScore:result['npc-score'],
-                round:result['round-num']});
+                round:result['round-num'],
+                playerHand:result['player-hand'],
+                npcHand:result['npc-hand'],
+                removeCard:this.removeCard,
+                currentDeck: d});
             })
         
         //.then(result => this.setState(() =>({currentDeck:result})))
@@ -99,7 +116,8 @@ export default class dataProvider extends React.Component
         saveToFile:this.saveToFile,
         winMessage: "",
         gameIsOver:false,
-        showWinPopup:false});
+        showWinPopup:false,
+        setHand:this.setHand});
     }
 
     startGame()
@@ -118,19 +136,38 @@ export default class dataProvider extends React.Component
         round: 1,
         gameIsOver: false,
         });
+        const name = this.props.children._self.props.match.params.username;
+        fetch(`http://localhost:5000/games/${name}`,
+        {
+            crossDomain: true,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: name,
+                pscore: 0,
+                nscore: 0,
+                round: 0,
+                deck: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],
+                playerHand: [0,0,0,0,0],
+                npcHand: [0,0,0,0,0]
+            })
+        });
     }
 
     start()
     {
         this.setState({showWinPopup: false,
             winMessage:"",
-
-        removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
+             round:this.state.round+1,
+            playerCard: [-1,0],
+            npcCard:[-1,0]});
     }
 
     saveToFile()
     {
-        console.log("SAVELH");
         const win = this.state.playerScore >= this.state.npcScore;
         const name = this.props.children._self.props.match.params.username;
         fetch(`http://localhost:5000/files/${name}`,
@@ -145,7 +182,7 @@ export default class dataProvider extends React.Component
                 username: name,
                 didWin: win
             })
-        }).then(() => console.log("DONE"));
+        });
 
     }
 
@@ -165,45 +202,66 @@ export default class dataProvider extends React.Component
                 pscore: this.state.playerScore,
                 nscore: this.state.npcScore,
                 round: this.state.round,
-                deck: this.state.currentDeck
+                deck: this.state.currentDeck,
+                playerHand: this.state.playerHand,
+                npcHand: this.state.npcHand
             })
-        }).then(console.log("done"));
+        });
     }
 
     findWinner()
     {
-        console.log(this.state.round);
-        if(this.state.round >= 14 && !this.state.gameIsOver)
-        {
-            this.gameEnd();
-            return;
-        }
+
         if(this.state.playerCard[1] > this.state.npcCard[1])
         {
-            this.setState({playerScore: this.state.playerScore+1,showWinPopup:true, winMessage:"Player Wins a Point!"},() => this.saveGame());
+            this.setState({playerScore: this.state.playerScore+1, removePlayerCard:true,removeNpcCard:true,showWinPopup:true, winMessage:"Player Wins a Point!"},() => 
+            {
+                this.saveGame();
+                if(this.state.round >= 14 && !this.state.gameIsOver)
+                {
+                    this.gameEnd();
+                    return;
+                }
+            });
         }
         else if(this.state.playerCard[1] < this.state.npcCard[1])
         {
-            this.setState({npcScore: this.state.npcScore+1,showWinPopup:true, winMessage:"Enemy Wins a Point!"},() => this.saveGame());
+            this.setState({npcScore: this.state.npcScore+1, removePlayerCard:true,removeNpcCard:true, showWinPopup:true, winMessage:"Enemy Wins a Point!"},() => 
+            {
+                this.saveGame()
+                if(this.state.round >= 14 && !this.state.gameIsOver)
+                {
+                    this.gameEnd();
+                    return;
+                }
+            });
         }
         else
         {
-            this.setState({showWinPopup:true,winMessage:"TIE"},() =>this.saveGame());
+            this.setState({showWinPopup:true,winMessage:"TIE", removePlayerCard:true,removeNpcCard:true},() =>
+            {
+                this.saveGame()
+                if(this.state.round >= 14 && !this.state.gameIsOver)
+                {
+                    this.gameEnd();
+                    return;
+                }
+            });
         }
         
 
        // this.setState({removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
     }
 
-    setPlayerCard(index, card)
+    setPlayerCard(index)
     {
-        let newCard = [index,card]
+        let newCard = [index,this.state.playerHand[index]];
         this.setState({playerCard:newCard, removePlayerCard: false});
     }
 
-    setNpcCard(index, card)
+    setNpcCard(index)
     {
-        let newCard = [index, card]
+        let newCard = [index, this.state.npcHand[index]];
         this.setState({npcCard:newCard, removeNpcCard: false});
     }
 

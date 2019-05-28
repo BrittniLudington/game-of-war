@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import "../css/basic-style.css";
+import {Context} from './currentGameData';
+
 
 export default class Hand extends Component
 {
@@ -10,52 +12,70 @@ export default class Hand extends Component
         {
             "cards" : [0,0,0,0,0],
             finishedRemoving: true,
-            selectedACard : false
+            selectedACard : false,
+            type: undefined
         };
 
         this.selectCard = this.selectCard.bind(this);
-        this.toggle = this.toggle.bind(this);
         this.npcSelectCard = this.npcSelectCard.bind(this);
      //   this.deleteCard = this.deleteCard.bind(this);
     }
 
+    componentDidMount()
+    {
+        this.setState({type:this.props.type});
+    }
 
 
     render()
     {
-
-        this.getHand(this.props.deck,this.props.removeCards, this.props.toRemove, this.props.card, this.props.setCard);
-            if(this.props.type == "npc")
+        return(
+        <Context.Consumer>
             {
-                this.npcSelectCard(this.props.card,this.props.setCard,this.props.round);
-                return (
-                    <section>
-                        <h2>SCORE: {this.props.score}</h2>
-                    </section>
-                )
+                (value) =>
+                {
+                    if(value.currentDeck != undefined && value.playerHand.length != 0 && value.npcHand.length != 0 && this.state.type != undefined)
+                    {
+                        this.getHand(value.currentDeck,value.removeCard, this.props.toRemove, this.props.card,this.props.hand,value.setHand);
+                        if(this.props.type == "npc")
+                        {
+                            this.npcSelectCard(value.npcCard,this.props.setCard,value.round, value.npcHand);
+                            return (
+                                <section>
+                                    <h2>SCORE: {value.npcScore}</h2>
+                                </section>
+                            )
+                        }
+                        return (
+                            <section>
+                                <h2>SCORE: {value.playerScore}</h2>
+                                <table className="center-margin card-table">
+                                <tbody>
+                                        <tr>
+                                            {this.renderHand(value.playerHand,this.props.setCard, this.props.card)}
+                                  
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            </section>
+                        );
+                    }
+                    
+                }
+
             }
-            return (
-                <section>
-                    <h2>SCORE: {this.props.score}</h2>
-                    <table className="center-margin card-table">
-                    <tbody>
-                            <tr>
-                                {this.renderHand(this.props.setCard, this.props.card)}
-                      
-                            </tr>
-                            </tbody>
-                        </table>
-                </section>
-            );
+        </Context.Consumer>
+        );
     }
 
-    getHand(deck,callback, toRemove, selected, setCard)
+    getHand(deck,callback, toRemove, selected,handImport,setHand)
     {
-        let hand = this.state.cards;
+        let hand = handImport;
         if(toRemove)
         {
             hand[selected[0]] = 0;
-            setCard(-1,0);
+            //setCard(-1,0);
+            setHand(this.state.type,hand);
         }
         if(hand.includes(0) && deck.length != 0)
         {
@@ -64,24 +84,26 @@ export default class Hand extends Component
                 if(hand[i] == 0 && deck.length != 0)
                 {
                     hand[i] = deck.pop();
+                // console.log(deck);
                 }
 
             }
             callback(deck);
+           // console.log(this.state.type, hand);
+            setHand(this.state.type,hand);
             this.setState({cards:hand});
         }
-
     }
 
-    renderHand(callback, selectedCard)
+    renderHand(playerHand,callback, selectedCard, cards)
     {
         let table = [];
-        for(let i = 0; i < this.state.cards.length; i++)
+        for(let i = 0; i < playerHand.length; i++)
         {
             if(i == selectedCard[0])
-                table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback)}>{this.state.cards[i]}</td>);
+                table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback)}>{playerHand[i]}</td>);
             else
-                table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback)}>{this.state.cards[i]}</td>);
+                table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback)}>{playerHand[i]}</td>);
         }
         return table;
     }
@@ -89,23 +111,19 @@ export default class Hand extends Component
     selectCard(index,e,callback)
     {
         e.preventDefault();
-        this.toggle(index,callback);
+        callback(index);
     }
 
-    npcSelectCard(selected,callback, round)
+    npcSelectCard(selected,callback, round, npcHand)
     {
         if(selected[0] != -1) // already picked a card
             return;
         let num = Math.floor(Math.random() * 5);
-        while(this.state.cards[num] == 0 && round != 15)
+        while(npcHand[num] == 0 && round != 15)
         {
             num = Math.floor(Math.random() * 5);
         }
-        callback(num,this.state.cards[num]);
+        callback(num);
     }
 
-    toggle(index, callback)
-    {
-            callback(index, this.state.cards[index]);
-    }
 }

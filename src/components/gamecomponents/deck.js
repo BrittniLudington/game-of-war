@@ -1,44 +1,44 @@
 
 export default function createDeck(deckFile)
 {
-    let fullDeck = [];
-    console.log(deckFile);
-    for(let i = 0; i < 3; i++)
+
+    /*for(let i = 0; i < 3; i++)
     {
         for(let num = 1; num <= 10; num++)
         {
             if(deckFile[i][`${num}`] == 0)
             {
-                fullDeck.push(num);
+                deckFile.push(num);
             }
         }
     }
-    let curr = fullDeck.length, tempValue, randIndex;
+    */
+    let curr = deckFile.length, tempValue, randIndex;
     while(0 !== curr)
     {
         randIndex = Math.floor(Math.random() * curr);
         curr -= 1;
 
-        tempValue = fullDeck[curr];
-        fullDeck[curr] = fullDeck[randIndex];
-        fullDeck[randIndex] = tempValue;
+        tempValue = deckFile[curr];
+        deckFile[curr] = deckFile[randIndex];
+        deckFile[randIndex] = tempValue;
     }
 
-    /*let fullDeck =
+    /*let deckFile =
     [
         1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10
     ];
 
-    let curr = fullDeck.length, tempValue, randIndex;
+    let curr = deckFile.length, tempValue, randIndex;
     while(0 !== curr)
     {
         randIndex = Math.floor(Math.random() * curr);
         curr -= 1;
 
-        tempValue = fullDeck[curr];
-        fullDeck[curr] = fullDeck[randIndex];
-        fullDeck[randIndex] = tempValue;
+        tempValue = deckFile[curr];
+        deckFile[curr] = deckFile[randIndex];
+        deckFile[randIndex] = tempValue;
     }
     */
-    return fullDeck;
+    return deckFile;
 }
