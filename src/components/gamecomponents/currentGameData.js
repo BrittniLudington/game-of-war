@@ -87,7 +87,7 @@ export default class dataProvider extends React.Component
     componentWillMount()
     {
         const username = this.props.children._self.props.match.params.username;
-        fetch(`http://localhost:5000/games/${username}`,
+        fetch(`https://game-of-war-server.herokuapp.com/games/${username}`,
         {
             headers: {'Content-Type':'application/json'}
         })
@@ -141,7 +141,7 @@ export default class dataProvider extends React.Component
         const name = this.props.children._self.props.match.params.username;
 
         console.log(name);
-        fetch(`http://localhost:5000/games/${name}`,
+        fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
         {
             crossDomain: true,
             method: 'PUT',
@@ -174,7 +174,7 @@ export default class dataProvider extends React.Component
     {
         const win = this.state.playerScore >= this.state.npcScore;
         const name = this.props.children._self.props.match.params.username;
-        fetch(`http://localhost:5000/files/${name}`,
+        fetch(`https://game-of-war-server.herokuapp.com/files/${name}`,
         {
             crossDomain: true,
             method: 'PUT',
@@ -193,7 +193,7 @@ export default class dataProvider extends React.Component
     saveGame()
     {
         const name = this.props.children._self.props.match.params.username;
-        fetch(`http://localhost:5000/games/${name}`,
+        fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
         {
             crossDomain: true,
             method: 'PUT',

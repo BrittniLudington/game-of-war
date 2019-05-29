@@ -16,7 +16,7 @@ export default class FileMenu extends Component
     }
     componentDidMount()
     {
-        fetch('http://localhost:5000/files',//'https://game-of-war-server.herokuapp.com/files',
+        fetch('https://game-of-war-server.herokuapp.com/files',//'https://game-of-war-server.herokuapp.com/files',
         {
             //crossDomain: true,
             headers: {'Content-Type':'application/json'}
@@ -49,7 +49,7 @@ export default class FileMenu extends Component
 {
     let array = this.state.users.filter(user => user.username != username);
     this.setState({users:array});
-    fetch(`http://localhost:5000/user/${username}`,
+    fetch(`https://game-of-war-server.herokuapp.com/user/${username}`,
     {
         method: 'DELETE',
         headers: {

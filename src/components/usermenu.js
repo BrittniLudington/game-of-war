@@ -27,7 +27,7 @@ export default class UserMenu extends Component
         let {user} = this.props.location.state;
         this.setState(()=>({user}));
 
-        fetch(`http://localhost:5000/games/${user.username}`,
+        fetch(`https://game-of-war-server.herokuapp.com/games/${user.username}`,
         {
             headers: {'Content-Type':'application/json'}
         })
