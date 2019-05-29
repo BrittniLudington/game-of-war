@@ -122,6 +122,7 @@ export default class dataProvider extends React.Component
 
     startGame()
     {
+        const newDeck = createDeck([1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]);
         this.setState({showWinPopup: false,
         winMessage:"",
         playerCard:[-1,0],
@@ -135,8 +136,11 @@ export default class dataProvider extends React.Component
         handEmpty:[-1,-1],
         round: 1,
         gameIsOver: false,
+        currentDeck: newDeck
         });
         const name = this.props.children._self.props.match.params.username;
+
+        console.log(name);
         fetch(`http://localhost:5000/games/${name}`,
         {
             crossDomain: true,
@@ -150,7 +154,7 @@ export default class dataProvider extends React.Component
                 pscore: 0,
                 nscore: 0,
                 round: 0,
-                deck: [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],
+                deck: newDeck,
                 playerHand: [0,0,0,0,0],
                 npcHand: [0,0,0,0,0]
             })
