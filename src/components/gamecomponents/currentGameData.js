@@ -139,7 +139,7 @@ export default class dataProvider extends React.Component
         gameIsOver: false,
         currentDeck: newDeck
         });
-        const name = this.props.children._self.props.match.params.username;
+        const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
 
         console.log(name);
         fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
@@ -174,7 +174,7 @@ export default class dataProvider extends React.Component
     saveToFile()
     {
         const win = this.state.playerScore >= this.state.npcScore;
-        const name = this.props.children._self.props.match.params.username;
+        const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
         fetch(`https://game-of-war-server.herokuapp.com/files/${name}`,
         {
             crossDomain: true,
@@ -193,7 +193,7 @@ export default class dataProvider extends React.Component
 
     saveGame()
     {
-        const name = this.props.children._self.props.match.params.username;
+        const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
         fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
         {
             crossDomain: true,
