@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import filebar from './components/filebar';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import instructions from './components/instructions';
 import FileMenu from './components/filemenu';
 import UserMenu from './components/usermenu';
@@ -13,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Redirect from exact = '/' to ='/menu'/>
         <Route path='/instructions' component={instructions}></Route>
         <Route path='/menu' component={FileMenu}></Route>
         <Route path="/user/:username" component={UserMenu}></Route>
