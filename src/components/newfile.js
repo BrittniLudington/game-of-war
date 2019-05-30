@@ -6,8 +6,8 @@ export default function NewFile(props)
     let handleSubmit = function(e, callback,props)
     {
         e.preventDefault();
-        callback(document.getElementById('username').value);
-        props.history.push('/');
+        callback(document.getElementById('username').value,props);
+        //props.history.push('/');
     }
     return(<section aria-label="make a new file">
                         <h1>New Game</h1>
@@ -23,7 +23,7 @@ export default function NewFile(props)
 
 }
 
-function addUser(name)
+function addUser(name,props)
     {
         let alreadyExists = false;
         fetch(`https://game-of-war-server.herokuapp.com/files/${name}`)
@@ -47,6 +47,9 @@ function addUser(name)
                 username: name,
             })
             })
+        }).then(() =>
+        {
+            props.history.push(`/user/${name}`);
         })
        
 

@@ -24,10 +24,25 @@ export default class UserMenu extends Component
     }
     componentDidMount()
     {
-        let {user} = this.props.location.state;
-        this.setState(()=>({user}));
+        let dummyUser = this.state.user;
+        let user = this.props.match.params.username;
 
-        fetch(`https://game-of-war-server.herokuapp.com/games/${user.username}`,
+
+        fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
+        {
+            headers: {'Content-Type':'application/json'}
+        })
+        .then(res => res.json())
+        .then(result => 
+            {
+                dummyUser['total-games'] = result[0]['total-games'];
+                dummyUser['total-wins'] = result[0]['total-wins'];
+                dummyUser['win-lose'] = result[0]['win-lose'];
+                dummyUser.username = user;
+
+                this.setState({user:dummyUser});
+            });
+        fetch(`https://game-of-war-server.herokuapp.com/games/${user}`,
         {
             headers: {'Content-Type':'application/json'}
         })
@@ -59,7 +74,7 @@ export default class UserMenu extends Component
         </section>
         <section aria-label="button directory">
             <ul id="gameButtons">
-                <li><Link to={{pathname:`/gamemenu/${this.state.user.username}`,gameid:this.state.user.gameid}}>Continue/Begin Game</Link></li>
+                <li><Link to={{pathname:`/gamemenu/${this.state.user.username}`}}>Continue/Begin Game</Link></li>
                 <li><Link to="/">Return to Menu</Link></li>
             </ul>
         </section>

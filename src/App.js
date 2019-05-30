@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Redirect from exact = '/' to ='/menu'/>
+        <Redirect exact from='/' to='/menu'></Redirect>
         <Route path='/instructions' component={instructions}></Route>
         <Route path='/menu' component={FileMenu}></Route>
         <Route path="/user/:username" component={UserMenu}></Route>

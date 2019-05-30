@@ -86,7 +86,6 @@ export default class dataProvider extends React.Component
 
     componentWillMount()
     {
-        console.log(this.props);
         const username = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
         fetch(`https://game-of-war-server.herokuapp.com/games/${username}`,
         {
