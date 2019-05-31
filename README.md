@@ -22,3 +22,11 @@ refresh the page.
 
 File Menu:
 
+The App will take a minute to load any existing files. During this time the user will see this
+
+![File menu loading](https://github.com/BrittniLudington/game-of-war/blob/master/readmeimages/menuloading.PNG)
+
+When any files have been successfully loaded, the user will see all files
+
+![File menu loaded](https://github.com/BrittniLudington/game-of-war/blob/master/readmeimages/menuloaded.PNG)
+
