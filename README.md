@@ -19,3 +19,6 @@ Known Issues:
 
 As the App uses React and Node JS, a multi-threaded library and a single threaded respectively, asynchronousy in information can occur. If this happens	
 refresh the page.
+
+File Menu:
+
