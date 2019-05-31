@@ -8,12 +8,11 @@ export default function instructions()
 
             <p>This is a simplified version of the classic card game WAR</p>
             <h2>To Start</h2>
-            <p>Each game will start with a pack of 52 cards</p>
+            <p>Each game will start with a pack of 30 cards</p>
             <ul className="instructions">
                 <li>Each card has a number from 1 to 10</li>
-                <li>The deck will be randomized and then cut in half</li>
-                <li>Both players will receive each half of the deck</li>
-                <li>Both players will take five cards from the top of their halves</li>
+                <li>The deck will be randomized when a game is started</li>
+                <li>Both players will take five cards from the deck</li>
             </ul>
 
             <h2>Playing</h2>
