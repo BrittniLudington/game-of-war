@@ -28,7 +28,33 @@ export default class UserMenu extends Component
         let user = this.props.match.params.username;
 
 
-        fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
+        Promise.all([
+            fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
+            {
+                headers: {'Content-Type':'application/json'}
+            }),
+            fetch(`https://game-of-war-server.herokuapp.com/games/${user}`,
+            {
+                headers: {'Content-Type':'application/json'}
+            })
+        ]).then(([fileRes,gameRes]) =>
+        {
+            fileRes.json().then(result =>
+                {
+                    console.log(result);
+                    dummyUser['total-games'] = result[0]['total-games'];
+                    dummyUser['total-wins'] = result[0]['total-wins'];
+                    dummyUser['win-lose'] = result[0]['win-lose'];
+                    dummyUser.username = user;
+
+                    this.setState({user:dummyUser});
+                })
+            gameRes.json().then(result =>
+                {
+                    this.setState({game:result})
+                })
+        })
+        /*fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
         {
             headers: {'Content-Type':'application/json'}
         })
@@ -48,6 +74,7 @@ export default class UserMenu extends Component
         })
         .then(res => res.json())
         .then(result => this.setState({game:result}));
+        */
     }
     render()
     {

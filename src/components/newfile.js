@@ -26,31 +26,36 @@ export default function NewFile(props)
 function addUser(name,props)
     {
         let alreadyExists = false;
-        fetch(`https://game-of-war-server.herokuapp.com/files/${name}`)
-        .then(res => res.json())
-        .then(result =>
-            {
-                if(result.length > 0) alreadyExists = true;
-            if(alreadyExists)
-            {
-                return;
-            }
-            fetch('https://game-of-war-server.herokuapp.com/files',
-            {
-            crossDomain: true,
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: name,
-            })
-            })
-        }).then(() =>
+        const request = async () =>
         {
-            props.history.push(`/user/${name}`);
-        })
+            const get = await fetch(`https://game-of-war-server.herokuapp.com/files/${name}`)
+            .then(res => res.json())
+            .then(result =>
+                {
+                    if(result.length > 0) alreadyExists = true;
+                if(alreadyExists)
+                {
+                    return;
+                }
+                fetch('https://game-of-war-server.herokuapp.com/files',
+                {
+                crossDomain: true,
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: name,
+                })
+                })
+            })
+                const finished = await get;
+                props.history.push(`/user/${name}`);
+           
+        }
+
+        request();
        
 
         /*            "username": "john",
