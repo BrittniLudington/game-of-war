@@ -2,6 +2,7 @@
 
 
 ## Purpose: The game of war App is a project designed for the Full Flex Thinkful Capstone. It is an computer version of the card game known as War.
+I chose this project to try and create a file save system from scratch; a system that saves all the current conditions of an event (in this case, a player's game).
 
 
 ## To Start: 
@@ -15,10 +16,25 @@
 
 		Create a new File or Select an already made file if one exists.
 
+## Build Status:
+
+	Functional, one can play games and have their file on it. Visual design is currently in progress
+
+## FrameWork used:
+
+	This App uses the React framework for the front end, and Node JS for the backend.
+
+	*For more information on the backend, see the readme for game-of-war-server https://github.com/BrittniLudington/game-of-war-server
+
+## Features:
+
+	- A fetch system that creates/deletes/and updates files.
+	- Will fetch (GET) data again upon refresh (no surprise data loss on client end).
+	- A game that can be challenging and fun.
+
 ## Known Issues:
 
-As the App uses React and Node JS, a multi-threaded library and a single threaded respectively, asynchronousy in information can occur. If this happens	
-refresh the page.
+As the App uses React and Node JS, a multi-threaded library and a single threaded respectively, asynchronousy in information may possibly occur. If this happens refresh the page.
 
 ## Pages:
 
