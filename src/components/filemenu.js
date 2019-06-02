@@ -41,8 +41,7 @@ export default class FileMenu extends Component
             <LandingPage></LandingPage>
         <section aria-label="filemenu" className="gray">
                     <header className="center" aria-label="title">
-                        <h1>Choose your file below</h1>
-                        <p>Note: Both "load file" and "delete file" will go to this wireframe, but the purpose will be different</p>
+                        <h1>Choose your game below</h1>
                     </header>
                     {this.state.loadingMessage}
                     <table className="center center-margin" aria-label="files">

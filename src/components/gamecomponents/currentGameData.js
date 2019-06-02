@@ -101,12 +101,25 @@ export default class dataProvider extends React.Component
                 playerHand:result['player-hand'],
                 npcHand:result['npc-hand'],
                 removeCard:this.removeCard,
-                currentDeck: d});
+                currentDeck: d,
+            
+                setPlayerCard:this.setPlayerCard,
+                setNpcCard:this.setNpcCard,
+                findWinner:this.findWinner,
+            start: this.start,
+            gameEnd: this.gameEnd,
+            startGame:this.startGame,
+            saveGame: this.saveGame,
+            saveToFile:this.saveToFile,
+            winMessage: "",
+            gameIsOver:false,
+            showWinPopup:false,
+            setHand:this.setHand},() => {console.log(this.state.round);if(this.state.round == 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
             })
         
         //.then(result => this.setState(() =>({currentDeck:result})))
         
-        this.setState({setPlayerCard:this.setPlayerCard,
+       /* this.setState({setPlayerCard:this.setPlayerCard,
             setNpcCard:this.setNpcCard,
             findWinner:this.findWinner,
         start: this.start,
@@ -117,7 +130,8 @@ export default class dataProvider extends React.Component
         winMessage: "",
         gameIsOver:false,
         showWinPopup:false,
-        setHand:this.setHand});
+        setHand:this.setHand},() => {console.log(this.state.round);if(this.state.round == 15)this.gameEnd();});
+        */
     }
 
     startGame()

@@ -36,7 +36,6 @@ I chose this project to try and create a file save system from scratch; a system
 
 As the App uses React and Node JS, a multi-threaded library and a single threaded respectively, asynchronousy in information may possibly occur. If this happens refresh the page.
 
-BUG: As of right now there is a glitch that occurs if the player leaves the game after the final round but does not click "play again". This will be fixed.
 
 ## Pages:
 
