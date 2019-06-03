@@ -101,17 +101,18 @@ export default class Hand extends Component
         for(let i = 0; i < playerHand.length; i++)
         {
             if(i == selectedCard[0])
-                table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback)}>{playerHand[i]}</td>);
+                table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback,playerHand[i])}>{playerHand[i]}</td>);
             else
-                table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback)}>{playerHand[i]}</td>);
+                table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback,playerHand[i])}>{playerHand[i]}</td>);
         }
         return table;
     }
 
-    selectCard(index,e,callback)
+    selectCard(index,e,callback,valueOfCard)
     {
         e.preventDefault();
-        callback(index);
+        if(valueOfCard !== 0)
+            callback(index);
     }
 
     npcSelectCard(selected,callback, round, npcHand)
