@@ -49,6 +49,7 @@ export default class Hand extends Component
                         return (
                             <section>
                                 <h2>SCORE: {value.playerScore}</h2>
+                                <p>Select your card</p>
                                 <table className="center-margin card-table">
                                 <tbody>
                                         <tr>

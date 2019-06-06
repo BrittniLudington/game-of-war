@@ -43,7 +43,6 @@ export default class GameMenu extends Component
             </Context.Consumer>
         </section>
         <section className="gray" aria-label="attack area">
-            <p>After choosing a card, player's and enemy's card will display here to compare.</p>
             <div className="center-margin small center">
                     <Context.Consumer>
                         {
@@ -83,7 +82,7 @@ export default class GameMenu extends Component
                                         {value.playerCard[1]}
                                     </div>
                                     <div id="deck">
-                                    {length}
+                                    <p id="deckstatement">Cards left in deck: {length}</p>
                         </div>    
                                 </section>);
                                 }
@@ -114,7 +113,6 @@ export default class GameMenu extends Component
 
         </section>
         <section className="player gray" aria-label="user">
-            <p>Player's cards. Select a card to use in battle. Each card will hold an image representing that card</p>
             <Context.Consumer>
                 {
                     (value) =>

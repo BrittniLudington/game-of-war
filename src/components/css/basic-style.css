@@ -114,16 +114,6 @@ td:hover
     list-style: none;
 }
 
-#option
-{
-
-}
-
-#option:hover
-{
-    background-color:white;
-}
-
 /*GAME MENU*/
 
 .player
@@ -161,6 +151,12 @@ td:hover
     width:50%;
     background-color:white;
     border: 1px solid black;
+}
+
+#deckstatement
+{
+    padding:0;
+    margin:0;
 }
 
 .card-table
