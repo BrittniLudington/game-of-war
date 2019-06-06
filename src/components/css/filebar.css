@@ -6,5 +6,6 @@
 
 .entry:hover
 {
-    background-color:lightgray;
+    background-color:white;
+    border-radius: 5pt;
 }

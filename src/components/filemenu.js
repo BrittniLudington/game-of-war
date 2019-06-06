@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import "./css/basic-style.css";
 import File from './file';
 import LandingPage from './landingpage';
+import image from './images/cardsymbols.png';
 
 export default class FileMenu extends Component
 {
@@ -39,14 +40,17 @@ export default class FileMenu extends Component
         return (
             <section aria-label = "full Page">
             <LandingPage></LandingPage>
-        <section aria-label="filemenu" className="gray">
+        <section aria-label="filemenu" className = "whitebox">
                     <header className="center" aria-label="title">
                         <h1>Choose your game below</h1>
                     </header>
+                    <img className="left" src = {image} alt="card decoration goes here"/>
                     {this.state.loadingMessage}
-                    <table className="center center-margin" aria-label="files">
+                    <table className="center inline" aria-label="files">
                     {table}
                     </table>
+                    <img className="right" src = {image} alt="card decoration goes here"/>
+
                 </section>
             </section>);
                         //}
