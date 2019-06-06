@@ -14,6 +14,11 @@
     border-radius: 15pt;
 }
 
+.font
+{
+    font-family: 'Cinzel', serif;
+    font-size: 35pt;
+}
 #title
 {
     font-size: 40pt;
@@ -107,6 +112,16 @@ td:hover
 #gameButtons
 {
     list-style: none;
+}
+
+#option
+{
+
+}
+
+#option:hover
+{
+    background-color:white;
 }
 
 /*GAME MENU*/

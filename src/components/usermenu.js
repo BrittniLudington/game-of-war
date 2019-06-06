@@ -81,17 +81,16 @@ export default class UserMenu extends Component
         return(
             <section aria-label="user menu">
             <header className="center" aria-label = "title">
-                <h1>{this.state.user.username}</h1>
-                <p>This page will show the player's current stats, and allow them to either continue playing their current battle or start a new one</p>
+                <h1 className="font">{this.state.user.username}</h1>
             </header>
-            <section className=" center gray" aria-label="stats">
+            <section className=" center whitebox" aria-label="stats">
             <ul className = "statList">
                 <li>Number of games won: {this.state.user['total-wins']}</li>
                 <li>Number of games played: {this.state.user['total-games']}</li>
                 <li>Win rate: {this.state.user['win-lose']}</li>
             </ul>
         </section>
-        <section className="center gray" aria-label="current stats">
+        <section className="center whitebox" aria-label="current stats">
         <ul className = "statList">
         <h2>Current Game</h2>
             <li>Round: {this.state.game['round-num']}</li>
