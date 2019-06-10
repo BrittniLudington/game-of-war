@@ -15,7 +15,8 @@ export default class UserMenu extends Component
             'round-num':"",
             'player-score': "",
             'npc-score': ""
-        }
+        },
+        error: ""
     };
     constructor()
     {
@@ -49,10 +50,30 @@ export default class UserMenu extends Component
 
                     this.setState({user:dummyUser});
                 })
+                .catch(err =>
+                    {
+                        console.log(err);
+                        dummyUser['total-games'] = "";
+                        dummyUser['total-wins'] = "";
+                        dummyUser['win-lose'] = "";
+                        dummyUser.username = user;
+
+                    this.setState({user:dummyUser,error:"ERROR: something went wrong"});
+                    })
             gameRes.json().then(result =>
                 {
                     this.setState({game:result})
                 })
+                .catch(err =>
+                    {
+                        console.log(err);
+                        let dummyGame = this.state.game;
+                        dummyGame['round-num'] = "";
+                        dummyGame['player-score'] = "";
+                        dummyGame['npc-score'] = "";
+
+                        this.setState({game:dummyGame, error:"ERROR: something went wrong"});
+                    })
         })
         /*fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
         {
@@ -84,6 +105,7 @@ export default class UserMenu extends Component
                 <h1 className="font">{this.state.user.username}</h1>
             </header>
             <section className=" center whitebox" aria-label="stats">
+            <h2>{this.state.error}</h2>
             <ul className = "statList">
                 <li>Number of games won: {this.state.user['total-wins']}</li>
                 <li>Number of games played: {this.state.user['total-games']}</li>
@@ -100,11 +122,22 @@ export default class UserMenu extends Component
         </section>
         <section aria-label="button directory">
             <ul id="gameButtons">
-                <li><Link to={{pathname:`/gamemenu/${this.state.user.username}`}}>Continue/Begin Game</Link></li>
+                <li>{getLinks(this.state.error, this.state.user.username)}</li>
                 <li><Link to="/">Return to Menu</Link></li>
             </ul>
         </section>
         </section>
         );
     }
+
+}
+
+function getLinks(error,username)
+{
+    
+    if(error === "")
+    {
+        return (<Link to={{pathname:`/gamemenu/${username}`}}>Continue/Begin Game</Link>);
+    }
+    return "";
 }

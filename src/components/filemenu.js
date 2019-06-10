@@ -42,7 +42,7 @@ export default class FileMenu extends Component
             <LandingPage></LandingPage>
         <section aria-label="filemenu" className = "whitebox">
                     <header className="center" aria-label="title">
-                        <h1>Choose your game below</h1>
+                        <h1 className="defaultCursor">Choose your game below</h1>
                     </header>
                     <img className="left" src = {image} alt="card decoration goes here"/>
                     {this.state.loadingMessage}
