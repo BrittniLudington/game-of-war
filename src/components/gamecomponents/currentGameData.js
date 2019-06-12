@@ -53,12 +53,14 @@ export default class dataProvider extends React.Component
        this.removeCard = this.removeCard.bind(this);
     }
 
+    // removes a card from the deck by replacing deck with updated deck
     removeCard(newDeck)
     {
         this.setState({currentDeck:newDeck});
     }
 
 
+    // ends the full game
     gameEnd()
     {
         if(this.state.playerScore > this.state.npcScore)
@@ -76,6 +78,7 @@ export default class dataProvider extends React.Component
         
     }
 
+    // updates the player/npc's current hand
     setHand(type, handToSet)
     {
         if(type == "player")
@@ -84,6 +87,7 @@ export default class dataProvider extends React.Component
             this.setState({npcHand:handToSet, removeNpcCard: false});
     }
 
+    // load all data and bind all methods
     componentWillMount()
     {
         const username = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
@@ -114,26 +118,12 @@ export default class dataProvider extends React.Component
             winMessage: "",
             gameIsOver:false,
             showWinPopup:false,
-            setHand:this.setHand},() => {console.log(this.state.round);if(this.state.round == 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
+            setHand:this.setHand},() => {if(this.state.round == 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
             })
-        
-        //.then(result => this.setState(() =>({currentDeck:result})))
-        
-       /* this.setState({setPlayerCard:this.setPlayerCard,
-            setNpcCard:this.setNpcCard,
-            findWinner:this.findWinner,
-        start: this.start,
-        gameEnd: this.gameEnd,
-        startGame:this.startGame,
-        saveGame: this.saveGame,
-        saveToFile:this.saveToFile,
-        winMessage: "",
-        gameIsOver:false,
-        showWinPopup:false,
-        setHand:this.setHand},() => {console.log(this.state.round);if(this.state.round == 15)this.gameEnd();});
-        */
+
     }
 
+    // starts a new game, clears all current game data
     startGame()
     {
         const newDeck = createDeck([1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]);
@@ -154,7 +144,6 @@ export default class dataProvider extends React.Component
         });
         const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
 
-        console.log(name);
         fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
         {
             crossDomain: true,
@@ -175,6 +164,7 @@ export default class dataProvider extends React.Component
         });
     }
 
+    // starts a new round
     start()
     {
         this.setState({showWinPopup: false,
@@ -184,6 +174,7 @@ export default class dataProvider extends React.Component
             npcCard:[-1,0]});
     }
 
+    // saves data to player's file such as the winner of the current game
     saveToFile()
     {
         const win = this.state.playerScore >= this.state.npcScore;
@@ -204,6 +195,7 @@ export default class dataProvider extends React.Component
 
     }
 
+    // saves current game data such as round, points, etc
     saveGame()
     {
         const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
@@ -227,6 +219,7 @@ export default class dataProvider extends React.Component
         });
     }
 
+    // compares cards selected by player and npc
     findWinner()
     {
 
@@ -267,16 +260,16 @@ export default class dataProvider extends React.Component
             });
         }
         
-
-       // this.setState({removePlayerCard:true,removeNpcCard:true, round:this.state.round+1});
     }
 
+    // sets the player's card
     setPlayerCard(index)
     {
         let newCard = [index,this.state.playerHand[index]];
         this.setState({playerCard:newCard, removePlayerCard: false});
     }
 
+    // sets the npc's card
     setNpcCard(index)
     {
         let newCard = [index, this.state.npcHand[index]];

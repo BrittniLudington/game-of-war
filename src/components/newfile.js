@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import Popup from 'react-popup';
 
 export default function NewFile(props)
 {
@@ -18,11 +18,13 @@ export default function NewFile(props)
                             </label>
                             <input type="submit" value="submit"/>
                         </form>
+                        <Popup />
                     </section>
     );
 
 }
 
+// checks if a user already exists, if not, creates a new file and sends user there
 function addUser(name,props)
     {
         let alreadyExists = false;
@@ -35,7 +37,8 @@ function addUser(name,props)
                     if(result.length > 0) alreadyExists = true;
                 if(alreadyExists)
                 {
-                    return;
+                        Popup.alert(`File ${name} already exists!`);
+                        return;
                 }
                 fetch('https://game-of-war-server.herokuapp.com/files',
                 {
@@ -49,8 +52,23 @@ function addUser(name,props)
                     username: name,
                 })
                 })
+                .then(res => res.json())
+                .then(result =>
+                    {
+                    })
+                .catch(err =>
+                    {
+                        console.log(err);
+                    })
             })
+            .catch(err =>
+                {
+                    console.log(err);
+                })
                 const finished = await get;
+                if(alreadyExists)
+                    return;
+
                 props.history.push(`/user/${name}`);
            
         }

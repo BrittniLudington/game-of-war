@@ -18,11 +18,7 @@ export default class UserMenu extends Component
         },
         error: ""
     };
-    constructor()
-    {
-        super();
 
-    }
     componentDidMount()
     {
         let dummyUser = this.state.user;
@@ -42,7 +38,6 @@ export default class UserMenu extends Component
         {
             fileRes.json().then(result =>
                 {
-                    console.log(result);
                     dummyUser['total-games'] = result[0]['total-games'];
                     dummyUser['total-wins'] = result[0]['total-wins'];
                     dummyUser['win-lose'] = result[0]['win-lose'];
