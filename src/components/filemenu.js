@@ -63,7 +63,7 @@ export default class FileMenu extends Component
 {
     let array = this.state.users.filter(user => user.username != username);
     this.setState({users:array});
-    fetch(`https://game-of-war-server.herokuapp.com/user/${username}`,
+    fetch(`https://game-of-war-server.herokuapp.com/files/${username}`,
     {
         method: 'DELETE',
         headers: {
