@@ -34,10 +34,10 @@ export default class Hand extends Component
             {
                 (value) =>
                 {
-                    if(value.currentDeck != undefined && value.playerHand.length != 0 && value.npcHand.length != 0 && this.state.type != undefined)
+                    if(value.currentDeck !== undefined && value.playerHand.length !== 0 && value.npcHand.length !== 0 && this.state.type !== undefined)
                     {
                         this.getHand(value.currentDeck,value.removeCard, this.props.toRemove, this.props.card,this.props.hand,value.setHand);
-                        if(this.props.type == "npc")
+                        if(this.props.type === "npc")
                         {
                             this.npcSelectCard(value.npcCard,this.props.setCard,value.round, value.npcHand);
                             return (
@@ -78,11 +78,11 @@ export default class Hand extends Component
             //setCard(-1,0);
             setHand(this.state.type,hand);
         }
-        if(hand.includes(0) && deck.length != 0)
+        if(hand.includes(0) && deck.length !== 0)
         {
             for(let i = 0; i < hand.length; i++)
             {
-                if(hand[i] == 0 && deck.length != 0)
+                if(hand[i] === 0 && deck.length !== 0)
                 {
                     hand[i] = deck.pop();
                 // console.log(deck);
@@ -101,7 +101,7 @@ export default class Hand extends Component
         let table = [];
         for(let i = 0; i < playerHand.length; i++)
         {
-            if(i == selectedCard[0])
+            if(i === selectedCard[0])
                 table.push(<td key={i} className="player-deck card card-color-selected" onClick={(e)=>this.selectCard(i,e,callback,playerHand[i])}>{playerHand[i]}</td>);
             else
                 table.push(<td key={i} className="player-deck card card-color" onClick={(e)=>this.selectCard(i,e,callback,playerHand[i])}>{playerHand[i]}</td>);
@@ -118,10 +118,10 @@ export default class Hand extends Component
 
     npcSelectCard(selected,callback, round, npcHand)
     {
-        if(selected[0] != -1) // already picked a card
+        if(selected[0] !== -1) // already picked a card
             return;
         let num = Math.floor(Math.random() * 5);
-        while(npcHand[num] == 0 && round != 15)
+        while(npcHand[num] === 0 && round !== 15)
         {
             num = Math.floor(Math.random() * 5);
         }

@@ -55,6 +55,7 @@ function addUser(name,props)
                 .then(res => res.json())
                 .then(result =>
                     {
+                        props.history.push(`/user/${name}`);
                     })
                 .catch(err =>
                     {
@@ -69,7 +70,6 @@ function addUser(name,props)
                 if(alreadyExists)
                     return;
 
-                props.history.push(`/user/${name}`);
            
         }
 

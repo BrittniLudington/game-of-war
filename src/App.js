@@ -7,11 +7,13 @@ import FileMenu from './components/filemenu';
 import UserMenu from './components/usermenu';
 import GameMenu from './components/gamemenu';
 import NewFile from './components/newfile';
+import LandingPage from './components/landingpage';
 
 
 function App() {
   return (
     <div className="App">
+    {LandingPage()}
       <Switch>
         <Redirect exact from='/' to='/menu'></Redirect>
         <Route path='/instructions' component={instructions}></Route>

@@ -71,7 +71,7 @@ export default class dataProvider extends React.Component
         {
             this.setState({winMessage:"YOU LOSE!",gameIsOver:true},() =>  this.saveToFile());
         }
-        if(this.state.playerScore == this.state.npcScore)
+        if(this.state.playerScore === this.state.npcScore)
         {
             this.setState({winMessage:"IT'S A TIE!",gameIsOver:true},() =>  this.saveToFile());
         }
@@ -81,9 +81,9 @@ export default class dataProvider extends React.Component
     // updates the player/npc's current hand
     setHand(type, handToSet)
     {
-        if(type == "player")
+        if(type === "player")
             this.setState({playerHand:handToSet, removePlayerCard: false});
-        if(type == "npc")
+        if(type === "npc")
             this.setState({npcHand:handToSet, removeNpcCard: false});
     }
 
@@ -118,7 +118,7 @@ export default class dataProvider extends React.Component
             winMessage: "",
             gameIsOver:false,
             showWinPopup:false,
-            setHand:this.setHand},() => {if(this.state.round == 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
+            setHand:this.setHand},() => {if(this.state.round === 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
             })
 
     }

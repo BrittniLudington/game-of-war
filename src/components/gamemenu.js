@@ -24,9 +24,9 @@ export default class GameMenu extends Component
     render()
     {
         let p = this.state.playerCard, n = this.state.npcCard;
-        if(p == 0)
+        if(p === 0)
             p = "Player's card";
-        if(n == 0)
+        if(n === 0)
             n = "Enemy's card";
         return(
             <DataProvider>
@@ -36,7 +36,7 @@ export default class GameMenu extends Component
                 {
                     (value) =>
                     {
-                        if(value.currentDeck != undefined && value.npcHand.length != 0)
+                        if(value.currentDeck !== undefined && value.npcHand.length !== 0)
                             return(<Hand hand={value.npcHand} name={this.state.username} type="npc" empty={value.handEmpty[0]} toRemove={value.removeNpcCard} setCard={value.setNpcCard} card={value.npcCard}></Hand>);
                     }
                 }
@@ -49,7 +49,7 @@ export default class GameMenu extends Component
                             (value) =>
                             {
                                 let length = "loading";
-                                if(value.currentDeck != undefined)
+                                if(value.currentDeck !== undefined)
                                     length = value.currentDeck.length;
                                 if(value.gameIsOver)
                                 {
@@ -71,7 +71,7 @@ export default class GameMenu extends Component
                                 {
                                     return(<section aria-label="chosen cards"> 
                                     <h3>Round {value.round}</h3>
-                                    <button disabled={value.playerCard[0]==-1} onClick={e => this.playRound(value.findWinner,e)}>Accept</button>
+                                    <button disabled={value.playerCard[0]===-1} onClick={e => this.playRound(value.findWinner,e)}>Accept</button>
     
                                     <div className = "card inline">
                                     <h4>Enemy</h4>
@@ -117,7 +117,7 @@ export default class GameMenu extends Component
                 {
                     (value) =>
                     {
-                        if(value.currentDeck != undefined && value.playerHand.length != 0)
+                        if(value.currentDeck !== undefined && value.playerHand.length !== 0)
                             return(<Hand hand={value.playerHand} name={this.state.username} type="player" empty={value.handEmpty[1]} toRemove={value.removePlayerCard} setCard={value.setPlayerCard} card={value.playerCard}></Hand>
                         );
                     }

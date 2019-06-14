@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import "./css/basic-style.css";
 import File from './file';
-import LandingPage from './landingpage';
 import image from './images/cardsymbols.png';
 
 export default class FileMenu extends Component
@@ -39,7 +38,6 @@ export default class FileMenu extends Component
         }
         return (
             <section aria-label = "full Page">
-            <LandingPage></LandingPage>
         <section aria-label="filemenu" className = "whitebox">
                     <header className="center" aria-label="title">
                         <h1 className="defaultCursor">Choose your game below</h1>
@@ -61,7 +59,7 @@ export default class FileMenu extends Component
 
     deleteUser(username)
 {
-    let array = this.state.users.filter(user => user.username != username);
+    let array = this.state.users.filter(user => user.username !== username);
     this.setState({users:array});
     fetch(`https://game-of-war-server.herokuapp.com/files/${username}`,
     {

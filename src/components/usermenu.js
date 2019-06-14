@@ -70,6 +70,10 @@ export default class UserMenu extends Component
                         this.setState({game:dummyGame, error:"ERROR: something went wrong"});
                     })
         })
+        .catch(err =>
+            {
+                console.log("Big err: " + err);
+            })
         /*fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
         {
             headers: {'Content-Type':'application/json'}
