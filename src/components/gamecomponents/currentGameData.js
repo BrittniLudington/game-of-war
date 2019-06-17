@@ -91,7 +91,7 @@ export default class dataProvider extends React.Component
     // load all data and bind all methods
     componentWillMount()
     {
-        const username = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
+        const username = this.props.children[0]._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
         fetch(`https://game-of-war-server.herokuapp.com/games/${username}`,
         {
             headers: {'Content-Type':'application/json'}
@@ -144,7 +144,7 @@ export default class dataProvider extends React.Component
         gameIsOver: false,
         currentDeck: newDeck
         });
-        const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
+        const name = this.props.children[0]._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
 
         fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
         {
@@ -180,7 +180,7 @@ export default class dataProvider extends React.Component
     saveToFile()
     {
         const win = this.state.playerScore >= this.state.npcScore;
-        const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
+        const name = this.props.children[0]._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
         fetch(`https://game-of-war-server.herokuapp.com/files/${name}`,
         {
             crossDomain: true,
@@ -200,7 +200,7 @@ export default class dataProvider extends React.Component
     // saves current game data such as round, points, etc
     saveGame()
     {
-        const name = this.props.children._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
+        const name = this.props.children[0]._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
         fetch(`https://game-of-war-server.herokuapp.com/games/${name}`,
         {
             crossDomain: true,
