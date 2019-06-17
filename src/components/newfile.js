@@ -55,7 +55,9 @@ function addUser(name,props)
                 .then(res => res.json())
                 .then(result =>
                     {
-                        props.history.push(`/user/${name}`);
+                        let unfilteredName = name;
+                        let filteredName = unfilteredName.replace(/[^a-zA-Z0-9_\-]/g, "");
+                        props.history.push(`/user/${filteredName}`);
                     })
                 .catch(err =>
                     {
