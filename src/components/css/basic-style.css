@@ -12,6 +12,7 @@
     margin:auto;
     font-family: 'Cinzel', serif;
     border-radius: 15pt;
+    padding: 5px;
 }
 
 .font
@@ -74,6 +75,9 @@ a
 .instructions
 {
     list-style: none;
+    margin:auto;
+    text-align: center;
+    padding:0;
 }
 
 /* INDEX */
@@ -132,6 +136,7 @@ td:focus
 {
     list-style: none;
 }
+
 
 /*GAME MENU*/
 

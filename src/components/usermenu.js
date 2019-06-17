@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './css/basic-style.css';
 import {Link} from 'react-router-dom';
+import './css/filebar.css';
 
 export default class UserMenu extends Component
 {
@@ -74,27 +75,7 @@ export default class UserMenu extends Component
             {
                 console.log("Big err: " + err);
             })
-        /*fetch(`https://game-of-war-server.herokuapp.com/files/${user}`,
-        {
-            headers: {'Content-Type':'application/json'}
-        })
-        .then(res => res.json())
-        .then(result => 
-            {
-                dummyUser['total-games'] = result[0]['total-games'];
-                dummyUser['total-wins'] = result[0]['total-wins'];
-                dummyUser['win-lose'] = result[0]['win-lose'];
-                dummyUser.username = user;
 
-                this.setState({user:dummyUser});
-            });
-        fetch(`https://game-of-war-server.herokuapp.com/games/${user}`,
-        {
-            headers: {'Content-Type':'application/json'}
-        })
-        .then(res => res.json())
-        .then(result => this.setState({game:result}));
-        */
     }
     render()
     {
@@ -122,7 +103,7 @@ export default class UserMenu extends Component
         <section aria-label="button directory">
             <ul id="gameButtons">
                 <li>{getLinks(this.state.error, this.state.user.username)}</li>
-                <li><Link to="/">Return to Menu</Link></li>
+                <li><Link className = "entry" to="/">Return to Menu</Link></li>
             </ul>
         </section>
         </section>
@@ -136,7 +117,7 @@ function getLinks(error,username)
     
     if(error === "")
     {
-        return (<Link to={{pathname:`/gamemenu/${username}`}}>Continue/Begin Game</Link>);
+        return (<Link className = "entry" to={{pathname:`/gamemenu/${username}`}}>Continue/Begin Game</Link>);
     }
     return "";
 }
