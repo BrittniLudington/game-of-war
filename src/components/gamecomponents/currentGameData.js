@@ -33,6 +33,7 @@ export default class dataProvider extends React.Component
             handEmpty:[-1,-1],
             round: 1,
             gameIsOver: false,
+            username: "",
             startGame: undefined,
             currentDeck: undefined,
             saveGame: undefined,
@@ -118,6 +119,7 @@ export default class dataProvider extends React.Component
             winMessage: "",
             gameIsOver:false,
             showWinPopup:false,
+            username: username,
             setHand:this.setHand},() => {if(this.state.round === 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
             })
 

@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import './css/basic-style.css';
+import './css/filebar.css';
 import Hand from './gamecomponents/hand.js';
 import DataProvider, {Context} from './gamecomponents/currentGameData';
+import {Link} from 'react-router-dom';
+
 export default class GameMenu extends Component
 {
     constructor()
@@ -30,6 +33,15 @@ export default class GameMenu extends Component
             n = "Enemy's card";
         return(
             <DataProvider>
+            <Context.Consumer>
+                {
+                    (value) =>
+                    {
+                        return(<Link className = "entry" to ={`/user/${value.username}`}>Return</Link>
+                        );
+                    }
+                }
+            </Context.Consumer>
             <section aria-label="game display">
             <section className="player" aria-label="enemy">
             <Context.Consumer>
