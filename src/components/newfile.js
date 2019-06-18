@@ -29,9 +29,9 @@ function addUser(name,props)
     {
         let unfilteredName = name;
         let filteredName = unfilteredName.replace(/[^a-zA-Z0-9_\-]/g, "");
-        if(filteredName.length > 1)
+        if(filteredName.length < 1)
         {
-            Popup.alert("Invalid filename!");
+            Popup.alert("Invalid filename! Excluding special characters, file names must be at least one character");
             return;
         }
         let alreadyExists = false;

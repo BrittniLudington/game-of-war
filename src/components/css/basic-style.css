@@ -23,7 +23,7 @@
 #title
 {
     font-size: 40pt;
-    cursor: default;
+    cursor: pointer;
 }
 
 .defaultCursor
