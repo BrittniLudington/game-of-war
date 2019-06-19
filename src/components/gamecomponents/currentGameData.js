@@ -176,10 +176,7 @@ export default class dataProvider extends React.Component
             winMessage:"",
              round:this.state.round+1,
             playerCard: [-1,0],
-            npcCard:[-1,0]},()=>
-            {
-                console.log(`npc hand: ${this.state.npcHand}`);
-            });
+            npcCard:[-1,0]});
     }
 
     // saves data to player's file such as the winner of the current game
