@@ -161,7 +161,7 @@ export default class dataProvider extends React.Component
                 username: name,
                 pscore: 0,
                 nscore: 0,
-                round: 1,
+                round: 0,
                 deck: newDeck,
                 playerHand: [0,0,0,0,0],
                 npcHand: [0,0,0,0,0]
@@ -174,7 +174,7 @@ export default class dataProvider extends React.Component
     {
         this.setState({showWinPopup: false,
             winMessage:"",
-             round:this.state.round+1,
+            round:this.state.round+1,
             playerCard: [-1,0],
             npcCard:[-1,0]});
     }
@@ -245,7 +245,7 @@ export default class dataProvider extends React.Component
             this.setState({npcScore: this.state.npcScore+1, removePlayerCard:true,removeNpcCard:true, showWinPopup:true, winMessage:"Enemy Wins a Point!"},() => 
             {
 
-                this.saveGame()
+                this.saveGame();
                 if(this.state.round >= 15 && !this.state.gameIsOver)
                 {
                     this.gameEnd();
@@ -258,7 +258,7 @@ export default class dataProvider extends React.Component
             this.setState({showWinPopup:true,winMessage:"TIE", removePlayerCard:true,removeNpcCard:true},() =>
             {
 
-                this.saveGame()
+                this.saveGame();
                 if(this.state.round >= 15 && !this.state.gameIsOver)
                 {
                     this.gameEnd();
