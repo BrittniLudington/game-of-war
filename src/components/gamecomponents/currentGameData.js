@@ -18,6 +18,7 @@ export default class dataProvider extends React.Component
            playerScore: 0,
            npcScore: 0,
            playerCard: [-1,0],
+           selectedCards: [0,0],
            npcCard: [-1,0],
            playerReady: false,
            npcReady: false,
@@ -232,7 +233,7 @@ export default class dataProvider extends React.Component
             this.setState({playerScore: this.state.playerScore+1, removePlayerCard:true,removeNpcCard:true,showWinPopup:true, winMessage:"Player Wins a Point!"},() => 
             {
                 this.saveGame();
-                if(this.state.round >= 14 && !this.state.gameIsOver)
+                if(this.state.round >= 15 && !this.state.gameIsOver)
                 {
                     this.gameEnd();
                     return;
@@ -243,8 +244,9 @@ export default class dataProvider extends React.Component
         {
             this.setState({npcScore: this.state.npcScore+1, removePlayerCard:true,removeNpcCard:true, showWinPopup:true, winMessage:"Enemy Wins a Point!"},() => 
             {
+
                 this.saveGame()
-                if(this.state.round >= 14 && !this.state.gameIsOver)
+                if(this.state.round >= 15 && !this.state.gameIsOver)
                 {
                     this.gameEnd();
                     return;
@@ -255,8 +257,9 @@ export default class dataProvider extends React.Component
         {
             this.setState({showWinPopup:true,winMessage:"TIE", removePlayerCard:true,removeNpcCard:true},() =>
             {
+
                 this.saveGame()
-                if(this.state.round >= 14 && !this.state.gameIsOver)
+                if(this.state.round >= 15 && !this.state.gameIsOver)
                 {
                     this.gameEnd();
                     return;
@@ -270,14 +273,18 @@ export default class dataProvider extends React.Component
     setPlayerCard(index)
     {
         let newCard = [index,this.state.playerHand[index]];
-        this.setState({playerCard:newCard, removePlayerCard: false});
+        let select = this.state.selectedCards;
+        select[0] = newCard[1];
+        this.setState({playerCard:newCard, removePlayerCard: false, selectedCards:select});
     }
 
     // sets the npc's card
     setNpcCard(index)
     {
         let newCard = [index, this.state.npcHand[index]];
-        this.setState({npcCard:newCard, removeNpcCard: false});
+        let select = this.state.selectedCards;
+        select[1] = newCard[1]
+        this.setState({npcCard:newCard, removeNpcCard: false, selectedCards: select});
     }
 
     render()

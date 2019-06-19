@@ -70,7 +70,7 @@ export default class GameMenu extends Component
          
                                          <div className = "card inline">
                                          <h4>Enemy</h4>
-                                         {value.npcCard[1]}
+                                         {value.selectedCards[1]}
                                          </div>
                                          <div className = "card inline">
                                          <h4>Player</h4>
@@ -91,7 +91,7 @@ export default class GameMenu extends Component
                                     </div>
                                     <div className = "card inline">
                                     <h4>Player</h4>
-                                        <p>{value.playerCard[1]}</p>
+                                        <p>{value.selectedCards[0]}</p>
                                     </div>
                                     <div id="deck">
                                     <p id="deckstatement">Cards left in deck: {length}</p>
