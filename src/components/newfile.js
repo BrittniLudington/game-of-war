@@ -1,6 +1,8 @@
 import React from 'react';
 import Popup from 'react-popup';
 
+let alreadyClicked = false;
+
 export default function NewFile(props)
 {
     let handleSubmit = function(e, callback,props)
@@ -27,6 +29,10 @@ export default function NewFile(props)
 // checks if a user already exists, if not, creates a new file and sends user there
 function addUser(name,props)
     {
+        if(alreadyClicked)
+        {
+            return;
+        }
         let unfilteredName = name;
         let filteredName = unfilteredName.replace(/[^a-zA-Z0-9_\-]/g, "");
         if(filteredName.length < 1)
@@ -34,6 +40,7 @@ function addUser(name,props)
             Popup.alert("Invalid filename! Excluding special characters, file names must be at least one character");
             return;
         }
+        alreadyClicked = true;
         let alreadyExists = false;
         const request = async () =>
         {
@@ -62,8 +69,9 @@ function addUser(name,props)
                 .then(res => res.json())
                 .then(result =>
                     {
-
+                        alreadyClicked = false;
                         props.history.push(`/user/${filteredName}`);
+
                     })
                 .catch(err =>
                     {
