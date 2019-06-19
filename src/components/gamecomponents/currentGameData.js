@@ -121,7 +121,7 @@ export default class dataProvider extends React.Component
             gameIsOver:false,
             showWinPopup:false,
             username: username,
-            setHand:this.setHand},() => {if(this.state.round === 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
+            setHand:this.setHand},() => {if(this.state.round > 15)this.setState({winMessage:"YOU WIN!",gameIsOver:true});});
             })
 
     }
@@ -176,7 +176,10 @@ export default class dataProvider extends React.Component
             winMessage:"",
              round:this.state.round+1,
             playerCard: [-1,0],
-            npcCard:[-1,0]});
+            npcCard:[-1,0]},()=>
+            {
+                console.log(`npc hand: ${this.state.npcHand}`);
+            });
     }
 
     // saves data to player's file such as the winner of the current game

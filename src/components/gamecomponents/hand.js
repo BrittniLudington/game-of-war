@@ -121,7 +121,7 @@ export default class Hand extends Component
         if(selected[0] !== -1) // already picked a card
             return;
         let num = Math.floor(Math.random() * 5);
-        while(npcHand[num] === 0 && round !== 15)
+        while(npcHand[num] === 0 && round <= 15)
         {
             num = Math.floor(Math.random() * 5);
         }
