@@ -161,7 +161,7 @@ export default class dataProvider extends React.Component
                 username: name,
                 pscore: 0,
                 nscore: 0,
-                round: 0,
+                round: 1,
                 deck: newDeck,
                 playerHand: [0,0,0,0,0],
                 npcHand: [0,0,0,0,0]
