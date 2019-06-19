@@ -142,7 +142,9 @@ export default class dataProvider extends React.Component
         handEmpty:[-1,-1],
         round: 1,
         gameIsOver: false,
-        currentDeck: newDeck
+        currentDeck: newDeck,
+        playerHand:[0,0,0,0,0],
+        npcHand:[0,0,0,0,0]
         });
         const name = this.props.children[0]._owner.pendingProps.match.params.username;//this.props.children._self.props.match.params.username;
 

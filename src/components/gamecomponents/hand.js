@@ -42,13 +42,13 @@ export default class Hand extends Component
                             this.npcSelectCard(value.npcCard,this.props.setCard,value.round, value.npcHand);
                             return (
                                 <section>
-                                    <h2>SCORE: {value.npcScore}</h2>
+                                    <h2>ENEMY SCORE: {value.npcScore}</h2>
                                 </section>
                             )
                         }
                         return (
                             <section>
-                                <h2>SCORE: {value.playerScore}</h2>
+                                <h2>YOUR SCORE: {value.playerScore}</h2>
                                 <p>Select your card</p>
                                 <table className="center-margin card-table">
                                 <tbody>
