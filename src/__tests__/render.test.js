@@ -7,8 +7,7 @@ import {BrowserRouter} from 'react-router-dom';
 import LandingPage from '../components/landingpage';
 import instructions from '../components/instructions';
 import File from '../components/file';
-import GameMenu from '../components/gamemenu';
-import App from '../App';
+
 
 
 describe('menu component renderings',() =>
